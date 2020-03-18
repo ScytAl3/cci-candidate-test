@@ -6,44 +6,14 @@ require 'pdo/pdo_db_functions.php';
 // ----------------------------//---------------------------
 //                      variables de session
 // ---------------------------------------------------------
-//----------------------------//----------------------------
-//                              CART
-// on verifie l existence du panier, sinon on le cree
-if (!isset($_SESSION['panier'])) {
-    // initialisation du panier 
-    $_SESSION['panier'] = array();
-    // subdivision du panier 
-    $_SESSION['panier']['id_product'] = array();
-    $_SESSION['panier']['qte_product'] = array();
-    $_SESSION['panier']['prix'] = array();
-}
-//                              CART
-//----------------------------//----------------------------
 //----------------------------//----------------------------s
 //                              USER
-// on verifie l existence du tableau des informations de session, sinon on le cree
-if (!isset($_SESSION['current'])) {
-    // initialisation du tableau 
-    $_SESSION['current'] = array();
-    $_SESSION['current']['page'] = '';
-    $_SESSION['current']['login'] = false;
-    $_SESSION['current']['userId'] = time();
-    $_SESSION['current']['userName'] = '';
-    $_SESSION['current']['userRole'] = 'Visitor';
-}
 // nom de la page en cours
-$_SESSION['current']['page'] = 'index';
+$_SESSION['current']['page'] = 'questionnaire';
 //                              USER
 //----------------------------//----------------------------
 //----------------------------//----------------------------
 //                     ERROR MANAGEMENT
-// on verifie l existence du tableau d erreur, sinon on le cree
-if (!isset($_SESSION['error'])) {
-    // initialisation du tableau 
-    $_SESSION['error'] = array();
-    $_SESSION['error']['page'] = '';
-    $_SESSION['error']['message'] = '';
-}
 // on efface le message d erreur d une autre page
 if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['error']['message'] = '';}
 //                     ERROR MANAGEMENT
@@ -58,7 +28,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
 		<!-- default Meta -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>CCI Formation - Choix de la formation</title>
+		<title>CCI Formation - Questionnaire de test de la formation</title>
 		<meta name="author" content="Franck Jakubowski">
 		<meta name="description" content="Un site pour que les futurs candidats puissent passer le test correspondant à la formation qu'ils veulent suivre après avoir rempli un formulaire de renseignements">
 		<!--  
@@ -83,37 +53,33 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
         
         <div class="container pt-3 mb-5">
             <!-----------------------------------------------//---------------------------------------------------
-                                                container global pour afficher le formulaire 
-            ----------------------------------------------------------------------------------------------------->  
-            <div class="py-5">       
-                <!-- area pour afficher un message d erreur lors de la creation -->
-                <div class="alert alert-danger <?=($_SESSION['error']['message'] != '') ? 'd-block' : 'd-none'; ?> text-center mt-5" role="alert">
-                    <p class="lead mt-2"><span><?=$_SESSION['error']['message'] ?></span></p>
-                </div>
-                <!-- /area pour afficher un message d erreur lors de la creation -->   
-            </div>            
+                                                                    container global 
+            ----------------------------------------------------------------------------------------------------->
+            
+            <!-- area pour afficher un message d erreur lors de la creation -->
+            <div class="alert alert-danger <?=($_SESSION['error']['message'] != '') ? 'd-block' : 'd-none'; ?> text-center mt-5" role="alert">
+                <p class="lead mt-2"><span><?=$_SESSION['error']['message'] ?></span></p>
+            </div>
+            <!-- /area pour afficher un message d erreur lors de la creation -->           
 
             <!-------------------- formulaire du choix de la formation ----------------------------->
-            <form class="" action="php_process/application_form.php" method="POST">                                               
-                 <!-------------------------------------------//---------------------------------------------------
+            <form class="" action="php_process/test_form.php" method="POST">                                               
+                <!-------------------------------------------//---------------------------------------------------
                                                                     liste deroulante
                 ----------------------------------------------------------------------------------------------------->
-                <div class="col-md-12 px-0">
-                    <h4 class="p-3 my-5 bg-info text-white text-uppercase">Pour quelle formation postulez-vous</h4>
+                <div class="col-md-12 px-0" style="height: 500px;">
+                    <h4 class="p-3 my-3 bg-info text-white text-uppercase">Première question</h4>
                     <!-- Liste des formations -->
-                     <div class="row">
-                        <div class="col-md-7 mb-3">
-                            <label for="trainingChoice">Intitulé de la formation</label>
-                            <select class="custom-select d-block w-100" id="trainingChoice" name="trainingChoice">
-                                <option value="">Sélectionnez...</option>
-                                <option value="">Formation 1</option>
-                                <option value="">Formation 2</option>
-                                <option value="">WIP...</option>
-                            </select>
-                        </div>
-                    <!-- /Liste des formations -->
-
-                    <hr class="mb-4">            
+                     <div class="mb-3 p-2">
+                        <label for="trainingChoice"><h5>Intitulé de la formation</h5></label>
+                        <select class="custom-select d-block w-100" id="trainingChoice" name="trainingChoice">
+                            <option value="">Sélectionnez...</option>
+                            <option value="">Formation 1</option>
+                            <option value="">Formation 2</option>
+                            <option value="">WIP...</option>
+                        </select>
+                    </div>
+                    <!-- /Liste des formations -->    
                 </div>
                 <!--------------------------------------------//---------------------------------------------------
                                                                     liste deroulante
@@ -125,17 +91,17 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
             </form>
             <!-------------------- /formulaire du choix de la formation ----------------------------->      
 
-            <!--------------------------------------//-------------------------------------------------------------
-                                        /container global pour afficher le formulaire
+            <!-----------------------------------------------------------------------------------------------------
+                                                                 /container global
             -------------------------------------------------//---------------------------------------------------->   
         </div>
 
         <!-- import du header -->
         <?php include 'includes/footer.php'; ?>
         <!-- /import du header -->
-<!------------------------------------------>
-    <?=var_dump($_SESSION) ?>
-<!------------------------------------------>
+        <!------------------------------------------>
+            <?=var_dump($_SESSION) ?>
+        <!------------------------------------------>
         <!-- import scripts -->
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 			integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

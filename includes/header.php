@@ -19,10 +19,10 @@
             <div class="progress-bar rounded-left" role="progressbar" style="width: 35%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                 <strong>Dossier</strong>
              </div>
-            <div class="progress-bar" role="progressbar" style="width: 35%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar <?=($_SESSION['current']['page'] != 'index') ? '' : 'bg-light text-dark' ?>" role="progressbar" style="width: 35%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
                 <strong>Choix formation</strong>
             </div>
-            <div class="progress-bar rounded-right" role="progressbar" style="width: 30%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar rounded-right <?=($_SESSION['current']['page'] == 'questionnaire') ? '' : 'bg-light text-dark' ?>" role="progressbar" style="width: 30%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                 <strong>Test</strong>
             </div>
         </div>

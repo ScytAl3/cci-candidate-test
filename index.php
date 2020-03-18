@@ -7,17 +7,17 @@ require 'pdo/pdo_db_functions.php';
 //                      variables de session
 // ---------------------------------------------------------
 //----------------------------//----------------------------
-//                              CART
-// on verifie l existence du panier, sinon on le cree
-if (!isset($_SESSION['panier'])) {
-    // initialisation du panier 
-    $_SESSION['panier'] = array();
-    // subdivision du panier 
-    $_SESSION['panier']['id_product'] = array();
-    $_SESSION['panier']['qte_product'] = array();
-    $_SESSION['panier']['prix'] = array();
+//                     QUESTIONNAIRE
+// on verifie l existence du test, sinon on le cree
+if (!isset($_SESSION['test'])) {
+    // initialisation du test 
+    $_SESSION['test'] = array();
+    // subdivision du test 
+    $_SESSION['test']['id_formation'] = "";
+    $_SESSION['test']['id_question'] = array();
+    $_SESSION['test']['reponse'] = array();
 }
-//                              CART
+//                      QUESTIONNAIRE
 //----------------------------//----------------------------
 //----------------------------//----------------------------s
 //                              USER
@@ -28,7 +28,6 @@ if (!isset($_SESSION['current'])) {
     $_SESSION['current']['page'] = '';
     $_SESSION['current']['login'] = false;
     $_SESSION['current']['userId'] = time();
-    $_SESSION['current']['userName'] = '';
     $_SESSION['current']['userRole'] = 'Visitor';
 }
 // nom de la page en cours
@@ -84,6 +83,22 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
         <!-- /import du header -->
         
         <div class="container pt-3 mb-5">
+            <!-- message d information pour tester la connexion a la base de donnees -->
+            <div class="alert alert-info text-center" role="alert">
+                <?php require 'pdo/pdo_db_connect.php'; 
+                    // on instancie une connexion pour verifie s il n y a pas d erreurs avec les parametres de connexion
+                    $pdo = my_pdo_connexxion();
+                    if ($pdo) {
+                        echo 'Connexion réussie à la base de données';
+                    } else {
+                        var_dump($pdo);
+                    }
+                ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>                            
+            </div>
+            <!-- /message d information pour tester la connexion a la base de donnees -->  
             <!-----------------------------------------------//---------------------------------------------------
                                 container global pour afficher le formulaire pour le dossier du candidat
             ----------------------------------------------------------------------------------------------------->           
@@ -99,7 +114,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
             <!-- /titre de la page du dossier de candidature -->                 
 
             <!--------------------  formulaire pour le dossier du candidat ----------------------------->
-            <form class="" action="php_process/application_form.php" method="POST">
+            <form class="" action="php_process/application_form_process.php" method="POST">
                 <!-----------------------------------------------//---------------------------------------------------
                                                                             etat civil
                 ----------------------------------------------------------------------------------------------------->
