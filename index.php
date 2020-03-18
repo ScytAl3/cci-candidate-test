@@ -58,7 +58,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
 		<!-- default Meta -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>CCI Formation - test entree candidat</title>
+		<title>CCI Formation - Dossier de candidature</title>
 		<meta name="author" content="Franck Jakubowski">
 		<meta name="description" content="Un site pour que les futurs candidats puissent passer le test correspondant à la formation qu'ils veulent suivre après avoir rempli un formulaire de renseignements">
 		<!--  
@@ -83,23 +83,23 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
         <?php include 'includes/header.php'; ?>
         <!-- /import du header -->
         
-        <div class="container pt-3 mb-5"  style="border: solid green">
+        <div class="container pt-3 mb-5">
             <!-----------------------------------------------//---------------------------------------------------
                                 container global pour afficher le formulaire pour le dossier du candidat
             ----------------------------------------------------------------------------------------------------->           
-            <!-- titre de la page de presentation -->
+            <!-- titre de la page du dossier de candidature -->
             <div class="py-5 text-center">
                 <h1 class="display-4 font-weight-bold text-uppercase">Dossier de candidature</h1>             
                 <!-- area pour afficher un message d erreur lors de la creation -->
-                <div class="alert alert-danger <?=($_SESSION['error']['message'] != '') ? 'd-block' : 'd-none'; ?> text-center mt-5" role="alert">
+                <div class="alert alert-danger <?=($_SESSION['error']['message'] != '') ? 'd-block' : 'd-none'; ?> mt-5" role="alert">
                     <p class="lead mt-2"><span><?=$_SESSION['error']['message'] ?></span></p>
                 </div>
                 <!-- /area pour afficher un message d erreur lors de la creation -->   
             </div>
-            <!-- /titre de la page de presentation -->                 
+            <!-- /titre de la page du dossier de candidature -->                 
 
             <!--------------------  formulaire pour le dossier du candidat ----------------------------->
-            <form class="form-inscription" action="php_process/application_form.php" method="POST">
+            <form class="" action="php_process/application_form.php" method="POST">
                 <!-----------------------------------------------//---------------------------------------------------
                                                                             etat civil
                 ----------------------------------------------------------------------------------------------------->
@@ -142,11 +142,11 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="birthPlace">Lieu de naissance</label>
-                            <input type="text" class="form-control" id="birthPlace" name ="birthPlace" placeholder="" value="" required="">
+                            <input type="text" class="form-control" id="birthPlace" name ="birthPlace" placeholder="" value="">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="birthDepartment">Département</label>
-                            <input type="text" class="form-control" id="birthDepartment" name ="birthDepartment" placeholder="" value="" required="">
+                            <input type="text" class="form-control" id="birthDepartment" name ="birthDepartment" placeholder="" value="">
                         </div>
                     </div>
                     <!-- /lieu de naissance et code postal -->
@@ -154,34 +154,34 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <!-- nationalite -->
                     <div class="mb-3">
                         <label for="nationality">Nationalié</label>
-                        <input type="text" class="form-control" id="nationality" name="nationality" placeholder="" value="" required="">
+                        <input type="text" class="form-control" id="nationality" name="nationality" placeholder="" value="">
                     </div>
                     <!-- /nationalite -->
 
                     <!-- permis de conduire -->
                     <div class="mb-3">
-                        <label for="licence">Permis de conduire</label>
+                        <label class="col-md-3" for="licence">Permis de conduire</label>
                         <div class="form-check form-check-inline ml-5">
                             <input class="form-check-input" type="checkbox" id="checkboxLicencseTrue" name="checkboxLicencseTrue" value="oui">
                             <label class="form-check-label" for="checkboxLicencseTrue">Oui</label>
                         </div>
                         <div class="form-check form-check-inline ml-5">
                             <input class="form-check-input" type="checkbox" id="checkboxLicencseFalse" name="checkboxLicencseFalse" value="oui">
-                            <label class="form-check-label" for="checkboxLicencseFalse">Oui</label>
+                            <label class="form-check-label" for="checkboxLicencseFalse">Non</label>
                         </div>
                     </div>
                     <!-- /permis de conduire -->
 
                     <!-- voiture personnelle -->
                     <div class="mb-3">
-                        <label for="personalCar">Voiture personnelle</label>
+                        <label class="col-md-3" for="personalCar">Voiture personnelle</label>
                         <div class="form-check form-check-inline ml-5">
                             <input class="form-check-input" type="checkbox" id="checkboxPersonalCarTrue" name="checkboxPersonalCarTrue" value="oui">
                             <label class="form-check-label" for="checkboxPersonalCarTrue">Oui</label>
                         </div>
                         <div class="form-check form-check-inline ml-5">
                             <input class="form-check-input" type="checkbox" id="checkboxPersonalCarFalse" name="checkboxPersonalCarFalse" value="oui">
-                            <label class="form-check-label" for="checkboxPersonalCarFalse">Oui</label>
+                            <label class="form-check-label" for="checkboxPersonalCarFalse">Non</label>
                         </div>
                     </div>
                     <!-- /voiture personnelle -->
@@ -192,9 +192,10 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                             <label for="emergency">Personne à prevenir en cas d'urgence</label>
                             <input type="text" class="form-control" id="emergency" name ="emergency" placeholder="" value="">
                         </div>
+
                         <div class="col-md-6 mb-3">
                             <label for="emergencyPhone">Numéro de téléphone</label>
-                            <input type="text" class="form-control" id="emergencyPhone"  name ="emergencyPhone" placeholder="" value="" required="">
+                            <input type="text" class="form-control" id="emergencyPhone"  name ="emergencyPhone" placeholder="" value="">
                         </div>
                     </div>
                     <!-- /personne a prevenir en cas d urgence -->
@@ -202,21 +203,21 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <!-- diplome obtenu -->
                     <div class="mb-3">
                         <label for="degreeObtained">Diplôme obtenu</label>
-                        <input type="text" class="form-control" id="degreeObtained" name="degreeObtained" placeholder="" value="" required="">
+                        <input type="text" class="form-control" id="degreeObtained" name="degreeObtained" placeholder="" value="">
                     </div>
                     <!-- /diplome obtenu -->
 
                     <!-- derniere classe -->
                     <div class="mb-3">
                         <label for="lastClass">Dernière classe fréquentée</label>
-                        <input type="text" class="form-control" id="lastClass" name="lastClass" placeholder="" value="" required="">
+                        <input type="text" class="form-control" id="lastClass" name="lastClass" placeholder="" value="">
                     </div>
                     <!-- /derniere classe -->
 
                     <!-- niveau d etude -->
                     <div class="mb-3">
                         <label for="gradeLevel">Niveau d'étude</label>
-                        <input type="text" class="form-control" id="gradeLevel" name="gradeLevel" placeholder="" value="" required="">
+                        <input type="text" class="form-control" id="gradeLevel" name="gradeLevel" placeholder="" value="">
                     </div>
                     <!-- /niveau d etude -->
                 </div>
@@ -232,12 +233,12 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <!-- adresse -->
                     <div class="mb-3">
                         <label for="address">Adresse</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="1234 Place de la république" value="" required="">
+                        <input type="text" class="form-control" id="address" name="address" placeholder="1234 Place de la république" value="">
                     </div>
 
                     <div class="mb-3">
-                    <label for="address2">Adresse suite <span class="text-muted">(Optionnel)</span></label>
-                    <input type="text" class="form-control" id="address2" name="address2"placeholder="Appartement, étage...">
+                        <label for="address2">Adresse suite <span class="text-muted">(Optionnel)</span></label>
+                        <input type="text" class="form-control" id="address2" name="address2"placeholder="Appartement, étage...">
                     </div>
                     <!-- /adresse -->
 
@@ -245,14 +246,15 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <div class="row">
                         <div class="col-md-5 mb-3">
                             <label for="zip">Code postal</label>
-                            <input type="text" class="form-control" id="zip" placeholder="" required="">
+                            <input type="text" class="form-control" id="zip" name="zip" placeholder="">
                         </div>
+
                         <div class="col-md-7 mb-3">
                             <label for="state">Ville</label>
-                            <select class="custom-select d-block w-100" id="ville" required="">
+                            <select class="custom-select d-block w-100" id="ville" name="ville">
                                 <option value="">Sélectionnez...</option>
-                                <option>Forbach</option>
-                                <option>WIP...</option>
+                                <option value="">Forbach</option>
+                                <option value="">WIP...</option>
                             </select>
                         </div>
                     </div>
@@ -262,11 +264,12 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="landlinePhone">Téléphone fixe</label>
-                            <input type="text" class="form-control" id="landlinePhone" name ="landlinePhone" placeholder="" value="" required="">
+                            <input type="text" class="form-control" id="landlinePhone" name ="landlinePhone" placeholder="" value="">
                         </div>
+
                         <div class="col-md-6 mb-3">
                             <label for="cellPhone">Téléphone portable</label>
-                            <input type="text" class="form-control" id="cellPhone" name ="cellPhone" placeholder="" value="" required="">
+                            <input type="text" class="form-control" id="cellPhone" name ="cellPhone" placeholder="" value="">
                         </div>
                     </div>
                     <!-- /telephone fixe & portable -->
@@ -278,11 +281,10 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                             <div class="input-group-prepend">
                                 <span class="input-group-text">@</span>
                             </div>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required="">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
                         </div>
                     </div>
                     <!-- /email -->
-
                 </div>
                 <!-----------------------------------------------//---------------------------------------------------
                                                                         coordonnees
@@ -293,16 +295,127 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                 ----------------------------------------------------------------------------------------------------->
                 <div class="col-md-12 px-0">
                     <h4 class="p-3 my-5 bg-info text-white text-uppercase">Votre situation</h4>
+                    <!-- situation familiale a nombre d enfant -->
+                     <div class="row">
+                        <div class="col-md-7 mb-3">
+                            <label for="maritalStatus">Situation familiale</label>
+                            <select class="custom-select d-block w-100" id="maritalStatus" name="maritalStatus">
+                                <option value="">Sélectionnez...</option>
+                                <option value="">Célibataire</option>
+                                <option value="">Marié(e)</option>
+                                <option value="">WIP...</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-5 mb-3">
+                            <label for="numDependentChild">Nombre d'enfant(s) à charge</label>
+                            <input type="text" class="form-control" id="numDependentChild" placeholder="">
+                        </div>
+                    </div>
+                    <!-- /situation familiale a nombre d enfant -->
+
+                    <hr class="mb-4">                        
+
+                    <!-- demandeur d emploi -->
+                    <div class="bg-light p-2">                        
+                        <h5 class="mb-4"><em>Demandeur d'emploi</em></h5>
+                        <!-- inscription & numero identifiant -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="dateRegistration">Date d'inscription au Pôle Emploi</label>
+                                <input type="date" class="form-control" id="dateRegistration"  name ="dateRegistration" placeholder="" value="">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="IDnumber">N° identifiant</label>
+                                <input type="text" class="form-control" id="IDnumber" name ="IDnumber" placeholder="" value="">
+                            </div>
+                        </div>
+                        <!-- /inscription & numero identifiant -->
+
+                        <!-- agence & conseiller -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="agencyOf">Agence de</label>
+                                <input type="text" class="form-control" id="agencyOf" name ="agencyOf" placeholder="" value="">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="consultant">Nom de la conseillère/du conseiller</label>
+                                <input type="text" class="form-control" id="consultant" name ="consultant" placeholder="" value="">
+                            </div>
+                        </div>
+                        <!-- /nom & prenom -->
+
+                        <!-- indemnisation pole emploi -->
+                        <div class="mb-3">
+                            <label class="col-md-3" for="compensation">Indemnisation Pôle Emploi</label>
+                            <div class="form-check form-check-inline ml-5">
+                                <input class="form-check-input" type="checkbox" id="checkboxCompensationTrue" name="checkboxCompensationTrue" value="oui">
+                                <label class="form-check-label" for="checkboxCompensationTrue">Oui</label>
+                            </div>
+                            <div class="form-check form-check-inline ml-5">
+                                <input class="form-check-input" type="checkbox" id="checkboxCompensationFalse" name="checkboxCompensationFalse" value="non">
+                                <label class="form-check-label" for="checkboxCompensationFalse">Non</label>
+                            </div>
+                        </div>
+                        <!-- /indemnisation pole emploi -->
+
+                        <!-- type indemnisation pole emploi -->
+                        <div class="mb-3">
+                            <label class="col-md-3" for="typeCompensation">Si oui laquelle ?</label>
+                            <div class="form-check form-check-inline ml-5">
+                                <input class="form-check-input" type="checkbox" id="checkboxTypeASS" name="checkboxTypeASS" value="ASS">
+                                <label class="form-check-label" for="checkboxTypeASS">ASS</label>
+                            </div>
+                            <div class="form-check form-check-inline ml-5">
+                                <input class="form-check-input" type="checkbox" id="checkboxTypeARE" name="checkboxTypeARE" value="ARE">
+                                <label class="form-check-label" for="checkboxTypeARE">ARE</label>
+                            </div>
+                            <div class="form-check form-check-inline ml-5">
+                                <input class="form-check-input" type="checkbox" id="checkboxTypeOther" name="checkboxTypeOther" value="OTHER">
+                                <label class="form-check-label" for="checkboxTypeOther">Autre</label>
+                            </div>
+                        </div>
+                        <!-- /type indemnisation pole emploi -->
+
+                        <!-- beneficiaire RSA -->
+                        <div class="mb-3">
+                            <label class="col-md-3" for="beneficiaryRSA">Etes-vous bénéficiaire du RSA</label>
+                            <div class="form-check form-check-inline ml-5">
+                                <input class="form-check-input" type="checkbox" id="checkboxRSATrue" name="checkboxRSATrue" value="oui">
+                                <label class="form-check-label" for="checkboxRSATrue">Oui</label>
+                            </div>
+                            <div class="form-check form-check-inline ml-5">
+                                <input class="form-check-input" type="checkbox" id="checkboxCompensationFalse" name="checkboxCompensationFalse" value="non">
+                                <label class="form-check-label" for="checkboxCompensationFalse">Non</label>
+                            </div>
+                        </div>
+                        <!-- /beneficiaire RSA -->
+
+                        <!-- ayant droit -->
+                        <div class="mb-3">
+                            <label class="col-md-3" for="rightfulClaimant">Ou ayant droit</label>
+                            <div class="form-check form-check-inline ml-5">
+                                <input class="form-check-input" type="checkbox" id="checkboxClaimantTrue" name="checkboxClaimantTrue" value="oui">
+                                <label class="form-check-label" for="checkboxClaimantTrue">Oui</label>
+                            </div>
+                            <div class="form-check form-check-inline ml-5">
+                                <input class="form-check-input" type="checkbox" id="checkboxClaimantFalse" name="checkboxClaimantFalse" value="non">
+                                <label class="form-check-label" for="checkboxClaimantFalse">Non</label>
+                            </div>
+                        </div>
+                        <!-- /ayant droit -->                    
+                    </div>
+                    <!-- demandeur d emploi -->
                 </div>
                 <!-----------------------------------------------//---------------------------------------------------
                                                                             situation
                 ----------------------------------------------------------------------------------------------------->
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                <!-- bouton validation du dossier de candidature -->
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Choisir votre formation</button>
+                <!-- /bouton validation du dossier de candidature -->
             </form>
-            <!----------------------------------------------------------------------------------------------------
-                                                /formulaire pour le dossier du candidat
-            ----------------------------------------------//------------------------------------------------------->        
+            <!---------------------- /formulaire pour le dossier du candidat ---------------------------->        
 
             <!--------------------------------------//-------------------------------------------------------------
                             /container global pour afficher le formulaire pour le dossier du candidat
