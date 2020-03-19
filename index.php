@@ -177,13 +177,13 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
 
                     <!-- permis de conduire -->
                     <div class="mb-3">
-                        <label class="col-md-3" for="licence">Permis de conduire</label>
+                        <label class="col-md-3" for="radioLicencse">Permis de conduire</label>
                         <div class="form-check form-check-inline ml-5">
-                            <input class="form-check-input" type="checkbox" id="checkboxLicencseTrue" name="checkboxLicencseTrue" value="oui">
+                            <input class="form-check-input" type="radio" id="radioLicencseTrue" name="radioLicencse" value="oui">
                             <label class="form-check-label" for="checkboxLicencseTrue">Oui</label>
                         </div>
                         <div class="form-check form-check-inline ml-5">
-                            <input class="form-check-input" type="checkbox" id="checkboxLicencseFalse" name="checkboxLicencseFalse" value="oui">
+                            <input class="form-check-input" type="radio" id="checkboxLicencseFalse" name="radioLicencse" value="oui">
                             <label class="form-check-label" for="checkboxLicencseFalse">Non</label>
                         </div>
                     </div>
@@ -191,13 +191,13 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
 
                     <!-- voiture personnelle -->
                     <div class="mb-3">
-                        <label class="col-md-3" for="personalCar">Voiture personnelle</label>
+                        <label class="col-md-3" for="radioPersonalCar">Voiture personnelle</label>
                         <div class="form-check form-check-inline ml-5">
-                            <input class="form-check-input" type="checkbox" id="checkboxPersonalCarTrue" name="checkboxPersonalCarTrue" value="oui">
+                            <input class="form-check-input" type="radio" id="radioPersonalCarTrue" name="radioPersonalCar" value="oui">
                             <label class="form-check-label" for="checkboxPersonalCarTrue">Oui</label>
                         </div>
                         <div class="form-check form-check-inline ml-5">
-                            <input class="form-check-input" type="checkbox" id="checkboxPersonalCarFalse" name="checkboxPersonalCarFalse" value="oui">
+                            <input class="form-check-input" type="radio" id="radioPersonalCarFalse" name="radioPersonalCar" value="oui">
                             <label class="form-check-label" for="checkboxPersonalCarFalse">Non</label>
                         </div>
                     </div>
@@ -363,60 +363,60 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
 
                         <!-- indemnisation pole emploi -->
                         <div class="mb-3">
-                            <label class="col-md-3" for="compensation">Indemnisation Pôle Emploi</label>
+                            <label class="col-md-3" for="radioCompensation">Indemnisation Pôle Emploi</label>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="checkbox" id="checkboxCompensationTrue" name="checkboxCompensationTrue" value="oui">
-                                <label class="form-check-label" for="checkboxCompensationTrue">Oui</label>
+                                <input class="form-check-input" type="radio" id="radioCompensationTrue" name="radioCompensation" value="oui">
+                                <label class="form-check-label" for="radioCompensation">Oui</label>
                             </div>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="checkbox" id="checkboxCompensationFalse" name="checkboxCompensationFalse" value="non">
-                                <label class="form-check-label" for="checkboxCompensationFalse">Non</label>
+                                <input class="form-check-input" type="radio" id="radioCompensationFalse" name="radioCompensation" value="non">
+                                <label class="form-check-label" for="radioCompensation">Non</label>
                             </div>
                         </div>
                         <!-- /indemnisation pole emploi -->
 
                         <!-- type indemnisation pole emploi -->
                         <div class="mb-3">
-                            <label class="col-md-3" for="typeCompensation">Si oui laquelle ?</label>
+                            <label class="col-md-3" for="radioTypeCompensation">Si oui laquelle ?</label>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="checkbox" id="checkboxTypeASS" name="checkboxTypeASS" value="ASS">
-                                <label class="form-check-label" for="checkboxTypeASS">ASS</label>
+                                <input class="form-check-input" type="radio" id="radioTypeASS" name="radioTypeCompensation" value="ASS">
+                                <label class="form-check-label" for="radioTypeCompensation">ASS</label>
                             </div>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="checkbox" id="checkboxTypeARE" name="checkboxTypeARE" value="ARE">
-                                <label class="form-check-label" for="checkboxTypeARE">ARE</label>
+                                <input class="form-check-input" type="radio" id="radioTypeARE" name="radioTypeCompensation" value="ARE">
+                                <label class="form-check-label" for="radioTypeCompensation">ARE</label>
                             </div>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="checkbox" id="checkboxTypeOther" name="checkboxTypeOther" value="OTHER">
-                                <label class="form-check-label" for="checkboxTypeOther">Autre</label>
+                                <input class="form-check-input" type="radio" id="radioTypeOther" name="radioTypeCompensation" value="OTHER">
+                                <label class="form-check-label" for="radioTypeCompensation">Autre</label>
                             </div>
                         </div>
                         <!-- /type indemnisation pole emploi -->
 
                         <!-- beneficiaire RSA -->
                         <div class="mb-3">
-                            <label class="col-md-3" for="beneficiaryRSA">Etes-vous bénéficiaire du RSA</label>
+                            <label class="col-md-3" for="radioBeneficiaryRSA">Etes-vous bénéficiaire du RSA</label>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="checkbox" id="checkboxRSATrue" name="checkboxRSATrue" value="oui">
-                                <label class="form-check-label" for="checkboxRSATrue">Oui</label>
+                                <input class="form-check-input" type="radio" id="radioRSATrue" name="radioBeneficiaryRSA" value="oui">
+                                <label class="form-check-label" for="radioBeneficiaryRSA">Oui</label>
                             </div>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="checkbox" id="checkboxCompensationFalse" name="checkboxCompensationFalse" value="non">
-                                <label class="form-check-label" for="checkboxCompensationFalse">Non</label>
+                                <input class="form-check-input" type="radio" id="radioCompensationFalse" name="radioBeneficiaryRSA" value="non">
+                                <label class="form-check-label" for="radioBeneficiaryRSA">Non</label>
                             </div>
                         </div>
                         <!-- /beneficiaire RSA -->
 
                         <!-- ayant droit -->
                         <div class="mb-3">
-                            <label class="col-md-3" for="rightfulClaimant">Ou ayant droit</label>
+                            <label class="col-md-3" for="radioRightfulClaimant">Ou ayant droit</label>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="checkbox" id="checkboxClaimantTrue" name="checkboxClaimantTrue" value="oui">
-                                <label class="form-check-label" for="checkboxClaimantTrue">Oui</label>
+                                <input class="form-check-input" type="radio" id="radioClaimantTrue" name="radioRightfulClaimant" value="oui">
+                                <label class="form-check-label" for="radioRightfulClaimant">Oui</label>
                             </div>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="checkbox" id="checkboxClaimantFalse" name="checkboxClaimantFalse" value="non">
-                                <label class="form-check-label" for="checkboxClaimantFalse">Non</label>
+                                <input class="form-check-input" type="radio" id="radioClaimantFalse" name="radioRightfulClaimant" value="non">
+                                <label class="form-check-label" for="radioRightfulClaimant">Non</label>
                             </div>
                         </div>
                         <!-- /ayant droit -->                    
