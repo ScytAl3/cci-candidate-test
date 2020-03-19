@@ -7,10 +7,12 @@ require 'pdo/pdo_db_functions.php';
 //                      variables de session
 // ---------------------------------------------------------
 //----------------------------//----------------------------s
-//                              USER
+//                       CURRENT SESSION
 // nom de la page en cours
 $_SESSION['current']['page'] = 'training_choice';
-//                              USER
+// jauge de la barre de progression
+$_SESSION['current']['progressbar'] = 75;
+//                       CURRENT SESSION
 //----------------------------//----------------------------
 //----------------------------//----------------------------
 //                     ERROR MANAGEMENT
@@ -55,31 +57,33 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
             <!-----------------------------------------------//---------------------------------------------------
                                                                     container global 
             ----------------------------------------------------------------------------------------------------->
-            
-            <!-- area pour afficher un message d erreur lors de la creation -->
-            <div class="alert alert-danger <?=($_SESSION['error']['message'] != '') ? 'd-block' : 'd-none'; ?> text-center mt-5" role="alert">
-                <p class="lead mt-2"><span><?=$_SESSION['error']['message'] ?></span></p>
+            <!-- titre de la page du choix de la formation -->
+            <div class="py-5 text-center">
+                <h2 class="font-weight-bold text-uppercase">Pour quelle formation postulez-vous</h2>
+                <!-- area pour afficher un message d erreur en rapport avec la liste deroulante -->
+                <div class="alert alert-danger <?=($_SESSION['error']['message'] != '') ? 'd-block' : 'd-none'; ?> mt-5" role="alert">
+                    <p class="lead mt-2"><span><?=$_SESSION['error']['message'] ?></span></p>
+                </div>
+                <!-- /area pour afficher un message d erreur en rapport avec la liste deroulante -->
             </div>
-            <!-- /area pour afficher un message d erreur lors de la creation -->           
-
+            <!-- /titre de la page du choix de la formation -->           
             <!-------------------- formulaire du choix de la formation ----------------------------->
             <form class="" action="php_process/training_choice_process.php" method="POST">                                               
                 <!-------------------------------------------//---------------------------------------------------
                                                                     liste deroulante
                 ----------------------------------------------------------------------------------------------------->
-                <div class="col-md-12 px-0" style="height: 400px;">
-                    <h4 class="p-3 my-3 bg-info text-white text-uppercase">Pour quelle formation postulez-vous</h4>
-                    <!-- Liste des formations -->
-                     <div class="mb-3 p-2">
-                        <label for="trainingChoice"><h5>Intitulé de la formation</h5></label>
+                <div class="card">
+                    <label for="trainingChoice" class="card-header bg-info text-white text-uppercase"><h5>Intitulé de la formation</h5></label>
+                    <div class="card-body">
+                        <!-- Liste des formations -->
                         <select class="custom-select d-block w-100" id="trainingChoice" name="trainingChoice">
                             <option value="">Sélectionnez...</option>
                             <option value="">Formation 1</option>
                             <option value="">Formation 2</option>
                             <option value="">WIP...</option>
                         </select>
+                        <!-- /Liste des formations -->    
                     </div>
-                    <!-- /Liste des formations -->    
                 </div>
                 <!--------------------------------------------//---------------------------------------------------
                                                                     liste deroulante
@@ -90,7 +94,6 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                 <!-- /bouton validation du choix de la formation -->
             </form>
             <!-------------------- /formulaire du choix de la formation ----------------------------->      
-
             <!-----------------------------------------------------------------------------------------------------
                                                                  /container global
             -------------------------------------------------//---------------------------------------------------->   

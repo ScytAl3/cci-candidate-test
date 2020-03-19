@@ -20,7 +20,7 @@ if (!isset($_SESSION['test'])) {
 //                      QUESTIONNAIRE
 //----------------------------//----------------------------
 //----------------------------//----------------------------s
-//                              USER
+//                       CURRENT SESSION
 // on verifie l existence du tableau des informations de session, sinon on le cree
 if (!isset($_SESSION['current'])) {
     // initialisation du tableau 
@@ -32,7 +32,10 @@ if (!isset($_SESSION['current'])) {
 }
 // nom de la page en cours
 $_SESSION['current']['page'] = 'index';
-//                              USER
+// jauge de la barre de progression
+$_SESSION['current']['progressbar'] = 0;
+
+//                       CURRENT SESSION
 //----------------------------//----------------------------
 //----------------------------//----------------------------
 //                     ERROR MANAGEMENT
@@ -105,14 +108,13 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
             <!-- titre de la page du dossier de candidature -->
             <div class="py-5 text-center">
                 <h1 class="display-4 font-weight-bold text-uppercase">Dossier de candidature</h1>             
-                <!-- area pour afficher un message d erreur lors de la creation -->
+                <!-- area pour afficher un message d erreur lors de la validation du dossier de candidature -->
                 <div class="alert alert-danger <?=($_SESSION['error']['message'] != '') ? 'd-block' : 'd-none'; ?> mt-5" role="alert">
                     <p class="lead mt-2"><span><?=$_SESSION['error']['message'] ?></span></p>
                 </div>
-                <!-- /area pour afficher un message d erreur lors de la creation -->   
+                <!-- /area pour afficher un message d erreur lors de la validation du dossier de candidature -->   
             </div>
             <!-- /titre de la page du dossier de candidature -->                 
-
             <!--------------------  formulaire pour le dossier du candidat ----------------------------->
             <form class="" action="php_process/application_form_process.php" method="POST">
                 <!-----------------------------------------------//---------------------------------------------------
@@ -243,6 +245,9 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                 <!-----------------------------------------------//---------------------------------------------------
                                                                         coordonnees
                 ----------------------------------------------------------------------------------------------------->
+                <!--------------------------------------------------------------------------------------------------
+                ///////////////////////////////////  TODO - dynamic localization    /////////////////////////////////////
+                ---------------------------------------------------------------------------------------------------->                                        
                 <div class="col-md-12 px-0">
                     <h4 class="p-3 my-5 bg-info text-white text-uppercase">Vos coordonnées</h4>
                     <!-- adresse -->
@@ -266,11 +271,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
 
                         <div class="col-md-7 mb-3">
                             <label for="state">Ville</label>
-                            <select class="custom-select d-block w-100" id="ville" name="ville">
-                                <option value="">Sélectionnez...</option>
-                                <option value="">Forbach</option>
-                                <option value="">WIP...</option>
-                            </select>
+                            <input type="text" class="form-control" id="ville" name="ville" placeholder="">
                         </div>
                     </div>
                     <!-- code postal & ville -->
@@ -431,7 +432,6 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                 <!-- /bouton validation du dossier de candidature -->
             </form>
             <!---------------------- /formulaire pour le dossier du candidat ---------------------------->        
-
             <!--------------------------------------//-------------------------------------------------------------
                             /container global pour afficher le formulaire pour le dossier du candidat
             -------------------------------------------------//---------------------------------------------------->   

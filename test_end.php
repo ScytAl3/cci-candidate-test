@@ -9,9 +9,7 @@ require 'pdo/pdo_db_functions.php';
 //----------------------------//----------------------------s
 //                        CURRENT SESSION
 // nom de la page en cours
-$_SESSION['current']['page'] = 'questionnaire';
-// jauge de la barre de progression
-$_SESSION['current']['progressbar'] = 100;
+$_SESSION['current']['page'] = 'congrat';
 //                        CURRENT SESSION
 //----------------------------//----------------------------
 //----------------------------//----------------------------
@@ -58,47 +56,22 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                                                                     container global 
             ----------------------------------------------------------------------------------------------------->            
             <!-- titre de la page du dossier de candidature -->
-            <div class="py-5 text-center">
-                <h2 class="font-weight-bold text-uppercase">Veuillez répondre à ce questionnaire</h2>
-                <h4 class="font-weight-bold text-uppercase text-muted">(plusieurs réponses peuvent être possibles)</h4>
+            <div class="py-5">
+                <h2 class="font-weight-bold text-uppercase">Félicitations, vous avez répondu à toutes les questions</h2>
+                <h2 class="font-weight-bold text-uppercase">Nous allons prendre contact avec vous pour convenir d'un entretien individuel</h2>
                 <!-- area pour afficher un message d erreur lors de la validation des questions -->
-                <div class="alert alert-danger <?=($_SESSION['error']['message'] != '') ? 'd-block' : 'd-none'; ?> mt-5" role="alert">
+                <div class="alert alert-danger <?=($_SESSION['error']['message'] != '') ? 'd-block' : 'd-none'; ?> text-center mt-5" role="alert">
                     <p class="lead mt-2"><span><?=$_SESSION['error']['message'] ?></span></p>
                 </div>
                 <!-- /area pour afficher un message d erreur lors de la validation des questions -->
             </div>
-            <!-- /titre de la page du dossier de candidature -->     
-            <!-------------------- formulaire pour afficher les questions et reponses ----------------------------->
-            <form class="" action="php_process/qcm_form_process.php" method="POST">                                               
-                <!-------------------------------------------//---------------------------------------------------
-                                                                    questionnaire
-                ----------------------------------------------------------------------------------------------------->
-                <div class="card">
-                    <h5 class="card-header text-right">Question 1/20</h5>
-                    <!-- passage de l identifiant de la question en parametre cache -->
-                    <input type="hidden" id="questionId" name="questionId" value=1>
-                    <!-- /passage de l identifiant de la question en parametre cache -->
-                    <div class="card-body">
-                        <h5 class="card-title">Quel est le prénom de Kev Adams ?</h5>
-                        <ul class="form-check pl-5">
-                            <li><input class="form-check-input" type="checkbox" id="checkboxQuestion1" name="checkboxQuestion1[]" value=1>
-                            <label class="form-check-label" for="checkboxQuestion1">Kevin</label></li>
-                            <li><input class="form-check-input" type="checkbox" id="checkboxQuestion1" name="checkboxQuestion1[]" value=2>
-                            <label class="form-check-label" for="checkboxLicencseTrue">Jean-Pascal</label></li>
-                            <li><input class="form-check-input" type="checkbox" id="checkboxQuestion1" name="checkboxQuestion1[]" value=3>
-                            <label class="form-check-label" for="checkboxQuestion1">Damien</label></li>
-                        </ul>
-                    </div>
-                </div>
-                <!--------------------------------------------//---------------------------------------------------
-                                                                    questionnaire
-                ----------------------------------------------------------------------------------------------------->
-                <hr class="mb-4">
-                <!-- bouton validation du questionnaire -->
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Valider</button>
-                <!-- /bouton validation du questionnaire -->
-            </form>
-            <!-------------------- /formulaire pour afficher les questions et reponses ----------------------------->      
+            <!-- /titre de la page du dossier de candidature -->   
+
+            <!-- bouton pour retourner a la page index et effacer toutes les variables de session --> 
+            <div class="row">                
+                <a type="submit" class="btn btn-success btn-lg btn-block" href="/logout.php">Terminer votre session</a>
+            </div>
+            <!-- /bouton pour retourner a la page index et effacer toutes les variables de session --> 
 
             <!-----------------------------------------------------------------------------------------------------
                                                                  /container global
