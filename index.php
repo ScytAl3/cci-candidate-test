@@ -80,12 +80,12 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
         <link href="css/footer.css" rel="stylesheet" type="text/css">
     </head>    
     
-	<body>   
+	<body class="bg-white">   
         <!-- import du header -->
         <?php include 'includes/header.php'; ?>
         <!-- /import du header -->
         
-        <div class="container pt-3 mb-5">
+        <div class="container global-padding-top pt-3 mb-5">
             <!-- message d information pour tester la connexion a la base de donnees -->
             <div class="alert alert-info text-center" role="alert">
                 <?php require 'pdo/pdo_db_connect.php'; 

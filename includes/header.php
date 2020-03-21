@@ -1,6 +1,6 @@
 <!-- main navigation -->
 <!-- si l utilisateur est un admin bg color : red, sinon  color : dark  -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light py-0 mb-4">
+<nav class="navbar navbar-expand-lg bg-white shadow fixed-top py-0 mb-4">
     <div class="container justify-content-center">
         <!-- navbar brand & logo -->
         <a class="navbar-brand" href="/index.php">

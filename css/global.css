@@ -8,4 +8,6 @@
 body {
     background-color: floralwhite;
     color: #312f31;
+    /*-- pour demarrer sous la navbar fixe --*/
+    padding-top: 7em;   
 }
