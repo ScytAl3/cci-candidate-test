@@ -218,9 +218,29 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <!-- /personne a prevenir en cas d urgence -->
 
                     <!-- diplome obtenu -->
+                     <?php 
+                        //-------------------------------------------------------------------
+                        // appelle de la fonction pour remplir la liste deroulante
+                        //-------------------------------------------------------------------
+                        $degreeList = dropDownListReader('diplome');
+                        //var_dump($degreeList); die;     
+                    ?>
                     <div class="mb-3">
                         <label for="degreeObtained">Diplôme obtenu</label>
-                        <input type="text" class="form-control" id="degreeObtained" name="degreeObtained" placeholder="" value="">
+                        <select class="custom-select d-block w-100" id="degreeObtained" name="degreeObtained">
+                            <option value="" disabled selected>Sélectionnez...</option>
+                            <!---------------------------------//-------------------------------------------
+                                                    boucle pour remplir la liste deroulante-->
+                            <?php
+                                foreach ($degreeList as $key => $column) {
+                            ?>
+                            <option value=<?=$column['diplome_ID'] ?> ><?=$column['diplome_libelle'] ?></option>
+                            <?php
+                                }
+                            ?>
+                            <!--                 boucle pour remplir la liste deroulante
+                            ---------------------------------//------------------------------------------->
+                        </select>
                     </div>
                     <!-- /diplome obtenu -->
 
@@ -232,9 +252,29 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <!-- /derniere classe -->
 
                     <!-- niveau d etude -->
+                    <?php 
+                        //-------------------------------------------------------------------
+                        // appelle de la fonction pour remplir la liste deroulante
+                        //-------------------------------------------------------------------
+                        $gradeList = dropDownListReader('niveau_etude');
+                        //var_dump($gradeList); die;     
+                    ?>
                     <div class="mb-3">
                         <label for="gradeLevel">Niveau d'étude</label>
-                        <input type="text" class="form-control" id="gradeLevel" name="gradeLevel" placeholder="" value="">
+                        <select class="custom-select d-block w-100" id="gradeLevel" name="gradeLevel">
+                            <option value="" disabled selected>Sélectionnez...</option>
+                            <!---------------------------------//-------------------------------------------
+                                                    boucle pour remplir la liste deroulante-->
+                            <?php
+                                foreach ($gradeList as $key => $column) {
+                            ?>
+                            <option value=<?=$column['niveau_etude_ID'] ?> ><?=$column['niveau_etude_Libele'] ?></option>
+                            <?php
+                                }
+                            ?>
+                            <!--                 boucle pour remplir la liste deroulante
+                            ---------------------------------//------------------------------------------->
+                        </select>
                     </div>
                     <!-- /niveau d etude -->
                 </div>
@@ -312,14 +352,29 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                 <div class="col-md-12 px-0">
                     <h4 class="p-3 my-5 bg-info text-white text-uppercase">Votre situation</h4>
                     <!-- situation familiale a nombre d enfant -->
+                    <?php 
+                        //-------------------------------------------------------------------
+                        // appelle de la fonction pour remplir la liste deroulante
+                        //-------------------------------------------------------------------
+                        $maritalStatusList = dropDownListReader('situation_famille');
+                        //var_dump($maritalStatusList); die;     
+                    ?>
                      <div class="row">
                         <div class="col-md-7 mb-3">
                             <label for="maritalStatus">Situation familiale</label>
                             <select class="custom-select d-block w-100" id="maritalStatus" name="maritalStatus">
-                                <option value="">Sélectionnez...</option>
-                                <option value="">Célibataire</option>
-                                <option value="">Marié(e)</option>
-                                <option value="">WIP...</option>
+                                <option value="" disabled selected>Sélectionnez...</option>
+                                <!---------------------------------//-------------------------------------------
+                                                    boucle pour remplir la liste deroulante-->
+                                <?php
+                                    foreach ($maritalStatusList as $key => $column) {
+                                ?>
+                                <option value=<?=$column['situation_famille_ID'] ?> ><?=$column['situation_famille_libele'] ?></option>
+                                <?php
+                                    }
+                                ?>
+                                <!--                 boucle pour remplir la liste deroulante
+                                ---------------------------------//------------------------------------------->
                             </select>
                         </div>
                         
