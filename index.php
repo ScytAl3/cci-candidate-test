@@ -179,12 +179,12 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <div class="mb-3">
                         <label class="col-md-3" for="radioLicencse">Permis de conduire</label>
                         <div class="form-check form-check-inline ml-5">
-                            <input class="form-check-input" type="radio" id="radioLicencseTrue" name="radioLicencse" value="oui">
-                            <label class="form-check-label" for="checkboxLicencseTrue">Oui</label>
+                            <input class="form-check-input" type="radio" id="radioLicencse" name="radioLicencse" value=1>
+                            <label class="form-check-label" for="radioLicencse">Oui</label>
                         </div>
                         <div class="form-check form-check-inline ml-5">
-                            <input class="form-check-input" type="radio" id="checkboxLicencseFalse" name="radioLicencse" value="oui">
-                            <label class="form-check-label" for="checkboxLicencseFalse">Non</label>
+                            <input class="form-check-input" type="radio" id="radioLicencse" name="radioLicencse" value=0>
+                            <label class="form-check-label" for="radioLicencse">Non</label>
                         </div>
                     </div>
                     <!-- /permis de conduire -->
@@ -193,12 +193,12 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <div class="mb-3">
                         <label class="col-md-3" for="radioPersonalCar">Voiture personnelle</label>
                         <div class="form-check form-check-inline ml-5">
-                            <input class="form-check-input" type="radio" id="radioPersonalCarTrue" name="radioPersonalCar" value="oui">
-                            <label class="form-check-label" for="checkboxPersonalCarTrue">Oui</label>
+                            <input class="form-check-input" type="radio" id="radioPersonalCar" name="radioPersonalCar" value=1>
+                            <label class="form-check-label" for="radioPersonalCar">Oui</label>
                         </div>
                         <div class="form-check form-check-inline ml-5">
-                            <input class="form-check-input" type="radio" id="radioPersonalCarFalse" name="radioPersonalCar" value="oui">
-                            <label class="form-check-label" for="checkboxPersonalCarFalse">Non</label>
+                            <input class="form-check-input" type="radio" id="radioPersonalCar" name="radioPersonalCar" value=0>
+                            <label class="form-check-label" for="radioPersonalCar">Non</label>
                         </div>
                     </div>
                     <!-- /voiture personnelle -->
@@ -380,7 +380,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                         
                         <div class="col-md-5 mb-3">
                             <label for="numDependentChild">Nombre d'enfant(s) à charge</label>
-                            <input type="text" class="form-control" id="numDependentChild" placeholder="">
+                            <input type="text" class="form-control" id="numDependentChild" name="numDependentChild" value = 0 placeholder="">
                         </div>
                     </div>
                     <!-- /situation familiale a nombre d enfant -->
@@ -420,11 +420,11 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                         <div class="mb-3">
                             <label class="col-md-3" for="radioCompensation">Indemnisation Pôle Emploi</label>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="radio" id="radioCompensationTrue" name="radioCompensation" value="oui">
+                                <input class="form-check-input" type="radio" id="radioCompensation" name="radioCompensation" value=1>
                                 <label class="form-check-label" for="radioCompensation">Oui</label>
                             </div>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="radio" id="radioCompensationFalse" name="radioCompensation" value="non">
+                                <input class="form-check-input" type="radio" id="radioCompensation" name="radioCompensation" value=0>
                                 <label class="form-check-label" for="radioCompensation">Non</label>
                             </div>
                         </div>
@@ -434,15 +434,15 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                         <div class="mb-3">
                             <label class="col-md-3" for="radioTypeCompensation">Si oui laquelle ?</label>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="radio" id="radioTypeASS" name="radioTypeCompensation" value="ASS">
+                                <input class="form-check-input" type="radio" id="radioTypeASS" name="radioTypeCompensation" value=1>
                                 <label class="form-check-label" for="radioTypeCompensation">ASS</label>
                             </div>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="radio" id="radioTypeARE" name="radioTypeCompensation" value="ARE">
+                                <input class="form-check-input" type="radio" id="radioTypeARE" name="radioTypeCompensation" value=2>
                                 <label class="form-check-label" for="radioTypeCompensation">ARE</label>
                             </div>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="radio" id="radioTypeOther" name="radioTypeCompensation" value="OTHER">
+                                <input class="form-check-input" type="radio" id="radioTypeOther" name="radioTypeCompensation" value=3>
                                 <label class="form-check-label" for="radioTypeCompensation">Autre</label>
                             </div>
                         </div>
@@ -452,11 +452,11 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                         <div class="mb-3">
                             <label class="col-md-3" for="radioBeneficiaryRSA">Etes-vous bénéficiaire du RSA</label>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="radio" id="radioRSATrue" name="radioBeneficiaryRSA" value="oui">
+                                <input class="form-check-input" type="radio" id="radioBeneficiaryRSA" name="radioBeneficiaryRSA" value=1>
                                 <label class="form-check-label" for="radioBeneficiaryRSA">Oui</label>
                             </div>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="radio" id="radioCompensationFalse" name="radioBeneficiaryRSA" value="non">
+                                <input class="form-check-input" type="radio" id="radioBeneficiaryRSA" name="radioBeneficiaryRSA" value=0>
                                 <label class="form-check-label" for="radioBeneficiaryRSA">Non</label>
                             </div>
                         </div>
@@ -466,11 +466,11 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                         <div class="mb-3">
                             <label class="col-md-3" for="radioRightfulClaimant">Ou ayant droit</label>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="radio" id="radioClaimantTrue" name="radioRightfulClaimant" value="oui">
+                                <input class="form-check-input" type="radio" id="radioRightfulClaimant" name="radioRightfulClaimant" value=1>
                                 <label class="form-check-label" for="radioRightfulClaimant">Oui</label>
                             </div>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="radio" id="radioClaimantFalse" name="radioRightfulClaimant" value="non">
+                                <input class="form-check-input" type="radio" id="radioRightfulClaimant" name="radioRightfulClaimant" value=0>
                                 <label class="form-check-label" for="radioRightfulClaimant">Non</label>
                             </div>
                         </div>
@@ -483,7 +483,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                 ----------------------------------------------------------------------------------------------------->
                 <hr class="mb-4">
                 <!-- bouton validation du dossier de candidature -->
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Choisir votre formation</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Choisir votre formation</button>
                 <!-- /bouton validation du dossier de candidature -->
             </form>
             <!---------------------- /formulaire pour le dossier du candidat ---------------------------->        

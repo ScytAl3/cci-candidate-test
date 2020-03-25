@@ -91,7 +91,6 @@ CREATE TABLE CANDIDAT(
     situation_famille_ID INT NOT NULL,
     niveau_etude_ID INT NOT NULL,
     diplome_ID INT NOT NULL,
-    formation_ID INT NOT NULL,
     PRIMARY KEY(utilisateur_ID),
     FOREIGN KEY(utilisateur_ID) REFERENCES UTILISATEUR(utilisateur_ID),
     FOREIGN KEY(situation_famille_ID) REFERENCES SITUATION_FAMILLE(situation_famille_ID),
