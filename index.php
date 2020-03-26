@@ -14,6 +14,7 @@ if (!isset($_SESSION['test'])) {
     $_SESSION['test'] = array();
     // subdivision du test 
     $_SESSION['test']['id_formation'] = "";
+    $_SESSION['test']['id_questionnaire'] = "";
     $_SESSION['test']['id_question'] = array();
     $_SESSION['test']['reponse'] = array();
 }
@@ -116,7 +117,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
             </div>
             <!-- /titre de la page du dossier de candidature -->                 
             <!--------------------  formulaire pour le dossier du candidat ----------------------------->
-            <form class="" action="php_process/application_form_process.php" method="POST">
+            <form class="" action="php_process/candidature_form_process.php" method="POST">
                 <!-----------------------------------------------//---------------------------------------------------
                                                                             etat civil
                 ----------------------------------------------------------------------------------------------------->

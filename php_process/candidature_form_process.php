@@ -4,7 +4,18 @@
     // on demarre une session la session
     session_start(); 
 
-     
+    //===============================================================
+    //                                                         TODO
+    //     >   verification de l' email de connexion (unicité)
+    //              | si existe -> user_ID
+    //                     >  verification du numero insee (unicité)
+    //                     >   verification identifiant pole emploi (unicité)
+    //                              | si probleme apres creation du candidat choisir la formation - test 
+    //                              | choix d autres formations - tests possible ?
+    //              | sinon
+    //                     >  verification du numero insee (unicité)
+    //                     >   verification identifiant pole emploi (unicité)
+    //===============================================================        
     if (isset($_POST['submit'])) {
         // verification que l utilisateur a saisie au moins un numero de telephone
         if (empty($_POST['landlinePhone']) && empty($_POST['cellPhone'])) {
@@ -18,6 +29,9 @@
         // ----------------------------------------------------------------------------------------------------------------------------------------
         //          on creer prepare le tableau avec les informations qui seront envoyees a la fonction qui creera le candidat
         // ----------------------------------------------------------------------------------------------------------------------------------------
+        // valeur par defaut du bouton radio pour le type de remuneration facultatif
+        $_POST['radioTypeCompensation'] = is_null($_POST['radioTypeCompensation']) ? NULL : $_POST['radioTypeCompensation'];
+
         $userData = [
             'nom' => $_POST['lastName'],
             'prenom' => $_POST['firstName'],
@@ -70,7 +84,7 @@
         // on enregistre comme variables de session - le numero d identifiant
         $_SESSION['current']['userId'] = $newUser;   
         // on  redirige vers la page de selection des formation
-        header('location: /../training_choice.php');
+        header('location: /../formation_choix.php');
     }
 
 ?>

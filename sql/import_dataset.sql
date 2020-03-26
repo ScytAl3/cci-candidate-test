@@ -113,3 +113,71 @@ VALUES
 	(5, 4, '2020-05-05', '2020-05-29'),
 	(5, 5, '2020-05-12', '2020-05-05'),
 	(5, 7, '2020-05-18', '2021-03-18');
+
+#----------------------- DONNEES ASSOCIEES TEST -----------------------
+
+#-----------------------------------------------------------
+# Table: QUESTIONNAIRE - Data
+#-----------------------------------------------------------
+INSERT INTO 
+	`questionnaire`(`questionnaire_libele`, `questionnaie_cearte_at`, `questionnaire_update_at`, `formation_ID`) 
+VALUES
+	('Test de connaissances Web', now(), NULL, 7);		-- 1
+
+#-----------------------------------------------------------
+# Table: QUESTION - Data
+#-----------------------------------------------------------
+INSERT INTO 
+	`question`(`question_libele`, `question_multiple`, `question_create_at`, `question_update_ate`, `questionnaire_ID`) 
+VALUES
+	('Quel est le langage informatique le plus courant utilisé pour écrire les pages web ?', 0, now(), NULL, 1),		-- 1
+	('Qu’est-ce qu’une adresse IP ?', 0, now(), NULL, 1),		-- 2
+	('Que veut dire FTP ?', 0, now(), NULL, 1),		-- 3
+	('W3C ça vous parle ?', 1, now(), NULL, 1),		-- 4
+	("Quel est le doctype d'un document HTML5 ?", 0, now(), NULL, 1),		-- 5
+	('Que signifie CSS ?', 0, now(), NULL, 1),		-- 6
+	('Pourquoi utilise-t-on généralement du CSS ?', 0, now(), NULL, 1),		-- 7
+	('Où est-il conseillé de placer le code CSS ?', 0, now(), NULL, 1),		-- 8
+	('Que signifie PHP ?', 0, now(), NULL, 1),		-- 9
+	('En PHP une variable est considérée comme null si :', 1, now(), NULL, 1);		-- 10
+
+#-----------------------------------------------------------
+# Table: PROPOSITION - Data
+#-----------------------------------------------------------
+INSERT INTO 
+	`proposition`(`proposition_libele`, `proposition_vrai`, `question_ID`) 
+VALUES
+	('HTML (Hypertext Markup Language)', 1, 1),
+	('HTTP (Hypertext Transfer Protocol)', 0, 1),
+	('JavaScript', 0, 1),
+	('Un numéro qui identifie chaque matériel informatique (ordinateur, routeur, imprimante) connecté à un réseau informatique', 1, 2),
+	('Le protocole de communication utilisé sur Internet', 0, 2),
+	('L’adresse d’un site web, commençant par "http://"', 0, 2),
+	('File Transmission Protocol', 0, 3),
+	('File Transfer Protocol', 1, 3),
+	('Fiber twisted pairs', 0, 3),
+	('Ça veut dire World Wide Web Consortium', 1, 4),
+	("C’est un nouveau groupe de K-pop", 0, 4),
+	("C’est un organisme de standardisation chargé de promouvoir la compatibilité des technologies du World Wide Web", 1, 4),
+	('<!DOCTYPE html5>', 0, 5),
+	('<!DOCTYPE html>', 1, 5),
+	('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML5.0 Strict//EN">', 0, 5),
+	('Cascading Style Sheets', 1, 6),
+	('JaCreate Simple SamplesvaScript', 0, 6),
+	('Cascading Simple Style', 0, 6),	
+	('Pour compliquer notre développement Web', 0, 7),
+	('Pour séparer le contenu et la présentation des documents web', 1, 7),
+	('Pour faire des dégradés de couleurs', 0, 7),
+	('Dans le <body>', 0, 8),
+	('Entre les balises <head>', 0, 8),
+	('Dans un fichier externe utilisable pour plusieurs pages', 1, 8),
+	('Dans ton cul tout simplement', 0, 8),
+	('Page Helper Process', 0, 9),
+	('Programming Home Pages', 0, 9),
+	('PHP: Hypertext Preprocessor', 1, 9),
+	("elle s'est vue assigner la constante NULL", 1, 10),
+	("elle n'a pas encore reçu de valeur", 1, 10),
+	('La variable a été évalué avec la fonction is_null()', 0, 10),
+	('elle a été effacée avec la fonction unset()', 1, 10);
+
+
