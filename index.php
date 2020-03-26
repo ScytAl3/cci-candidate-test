@@ -15,6 +15,7 @@ if (!isset($_SESSION['test'])) {
     // subdivision du test 
     $_SESSION['test']['id_formation'] = "";
     $_SESSION['test']['id_questionnaire'] = "";
+    $_SESSION['test']['time_debut'] = "";
     $_SESSION['test']['id_question'] = array();
     $_SESSION['test']['reponse'] = array();
 }

@@ -60,6 +60,11 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
             <!-- titre de la page du choix de la formation -->
             <div class="py-5 text-center">
                 <h2 class="font-weight-bold text-uppercase">Pour quelle formation postulez-vous</h2>
+                <!-- area pour prevenir que toutes les fomations n ont pas encore de test -->
+                <div class="alert alert-info text-center" role="alert">
+                    <p class="lead mt-2"><span>Les formations qui n'ont pas encore de tests sont désactivées</span></p>
+                </div>
+                <!-- /area pour prevenir que toutes les fomations n ont pas encore de test -->  
                 <!-- area pour afficher un message d erreur en rapport avec la liste deroulante -->
                 <div class="alert alert-danger <?=($_SESSION['error']['message'] != '') ? 'd-block' : 'd-none'; ?> mt-5" role="alert">
                     <p class="lead mt-2"><span><?=$_SESSION['error']['message'] ?></span></p>
@@ -68,19 +73,34 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
             </div>
             <!-- /titre de la page du choix de la formation -->           
             <!-------------------- formulaire du choix de la formation ----------------------------->
-            <form class="" action="php_process/training_choice_process.php" method="POST">                                               
+            <form class="" action="php_process/formation_choix_process.php" method="POST">                                               
                 <!-------------------------------------------//---------------------------------------------------
                                                                     liste deroulante
                 ----------------------------------------------------------------------------------------------------->
+                <?php 
+                    //-------------------------------------------------------------------
+                    // appelle de la fonction pour remplir la liste deroulante
+                    //-------------------------------------------------------------------
+                    $formationList = joinDropDownListReader('formation', 'questionnaire');
+                    //var_dump($formationList); die;     
+                ?>
                 <div class="card">
                     <label for="trainingChoice" class="card-header bg-info text-white text-uppercase"><h5>Intitulé de la formation</h5></label>
                     <div class="card-body">
                         <!-- Liste des formations -->
-                        <select class="custom-select d-block w-100" id="trainingChoice" name="trainingChoice">
+                        <select class="custom-select d-block w-100" id="trainingChoice" name="trainingChoice" required>
                             <option value="">Sélectionnez...</option>
-                            <option value="">Formation 1</option>
-                            <option value="">Formation 2</option>
-                            <option value="">WIP...</option>
+                            <!---------------------------------//-------------------------------------------
+                                                    boucle pour remplir la liste deroulante-->
+                            <?php
+                                foreach ($formationList as $key => $column) {
+                            ?>
+                            <option value="<?=$column['formation_ID'] ?>" <?=is_null($column['questionnaire_ID']) ? 'disabled' : '' ?>><?=$column['formation_Intitule'] ?></option>
+                            <?php
+                                }
+                            ?>
+                            <!--                 boucle pour remplir la liste deroulante
+                            ---------------------------------//------------------------------------------->
                         </select>
                         <!-- /Liste des formations -->    
                     </div>
@@ -89,6 +109,11 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                                                                     liste deroulante
                 ----------------------------------------------------------------------------------------------------->
                 <hr class="mb-4">
+                <!--------------------------------------------------//-------------------------------------------------------
+                            passage de parametre cache pour l affichage du test associe a la formation     -->
+                        <input type="hidden" id="questionnaire_ID" name="questionnaire_ID" value="<?=$column['questionnaire_ID'] ?>">
+                <!--      passage de parametre cache pour l affichage du test associe a la formation     
+                ----------------------------------------------------//-------------------------------------------------------->
                 <!-- bouton validation du choix de la formation -->
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Valider</button>
                 <!-- /bouton validation du choix de la formation -->
@@ -97,6 +122,12 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
             <!-----------------------------------------------------------------------------------------------------
                                                                  /container global
             -------------------------------------------------//---------------------------------------------------->   
+            <!--********************************************************************************
+                                                    TODO
+                            Afficher dynamiquement les informations concernant la formation choisie
+                                    > les centres qui dispensent cette formation 
+                                    > les dates de debut et fin
+            *********************************************************************************-->
         </div>
 
         <!-- import du header -->

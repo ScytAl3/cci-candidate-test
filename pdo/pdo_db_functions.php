@@ -5,6 +5,10 @@ require 'pdo_db_connect.php';
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                      Les Fonctions candidat                                           //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// ---------------------------------------------------------------------------
+//              fonction pour remplir les listes deroulantes
+// ---------------------------------------------------------------------------
 /**
  * renvoie le numero d identification et le libele des tables servant a remplir les listes deroulantes
  * 
@@ -184,6 +188,85 @@ function createUser($userData, $candidatData) {
     return $newUserId;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                      Les Fonctions formation                                         //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// ----------------------------------------------------------------------------------------------------------------------------------------
+//          fonction pour remplir la liste deroulante et permettre de desactiver la selection des formations sans tests
+// ----------------------------------------------------------------------------------------------------------------------------------------
+/**
+ * renvoie le numero d identification et le libele des tables servant a remplir les listes deroulantes
+ * 
+ * @param String    nom de la table premiere table
+ * @param String    nom de la table sur lequel porte la jointure
+ * 
+ * @return Array    retourne un tableau avec la liste demandee
+ */
+function joinDropDownListReader($leftTable, $rightTable) {
+    // on instancie une connexion
+    $pdo = my_pdo_connexxion();   
+    // preparation de la requete preparee 
+    $queryList = "SELECT f.formation_ID,  f.formation_Intitule,  q.questionnaire_ID
+                            FROM $leftTable f
+                            LEFT OUTER JOIN $rightTable q ON f.formation_ID = q.formation_ID";   
+    // preparation de la requete pour execution
+    try {
+        $statement = $pdo -> prepare($queryList, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        // execution de la requete
+        $statement -> execute();
+        // on verifie s il y a des resultats
+        // --------------------------------------------------------
+        //var_dump($statement->fetchColumn()); die; 
+        // --------------------------------------------------------
+        if ($statement->rowCount() > 0) {
+            $myReader = $statement->fetchAll();            
+        } else {
+            $myReader = false;
+        }   
+        $statement -> closeCursor();
+    } catch(PDOException $ex) {         
+        $statement = null;
+        $pdo = null;
+        $msg = 'ERREUR PDO Liste déroulate $table..' . $ex->getMessage(); 
+        die($msg);
+    }
+    // on retourne le resultat
+    return $myReader;
+}
 
-
+// ----------------------------------------------------------------------------------------------------------------------------------------
+//                      fonction pour renvoie une question et les reponses possible d un questionnaire
+// ----------------------------------------------------------------------------------------------------------------------------------------
+function displayQuestionAndAnswers($currentQuestion) {
+    // on instancie une connexion
+    $pdo = my_pdo_connexxion();   
+    // preparation de la requete preparee 
+    $queryList = "SELECT q.question_ID,  q.question_libele, p.proposition_ID, p.proposition_libele
+                            FROM `question` q
+                            INNER JOIN `proposition` p ON q.question_ID = p.question_ID
+                            WHERE q.questionnaire_ID = :bp_questionnaire_ID";   
+    // preparation de la requete pour execution
+    try {
+        $statement = $pdo -> prepare($queryList, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        // execution de la requete
+        $statement -> execute();
+        // on verifie s il y a des resultats
+        // --------------------------------------------------------
+        //var_dump($statement->fetchColumn()); die; 
+        // --------------------------------------------------------
+        if ($statement->rowCount() > 0) {
+            $myReader = $statement->fetchAll();            
+        } else {
+            $myReader = false;
+        }   
+        $statement -> closeCursor();
+    } catch(PDOException $ex) {         
+        $statement = null;
+        $pdo = null;
+        $msg = 'ERREUR PDO Liste déroulate $table..' . $ex->getMessage(); 
+        die($msg);
+    }
+    // on retourne le resultat
+    return $myReader;
+}
