@@ -70,33 +70,63 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
             <!-- /titre de la page du dossier de candidature -->     
             <!-------------------- formulaire pour afficher les questions et reponses ----------------------------->
             <form class="" action="php_process/qcm_form_process.php" method="POST">                                               
-                <!-------------------------------------------//---------------------------------------------------
+                <!-------------------------------------------//------------------------------------------------------
                                                                     questionnaire
-                ----------------------------------------------------------------------------------------------------->
+                ----------------------------------------------------------------------------------------------------->                
+                <?php 
+                //var_dump(array_keys(array_flip($_SESSION['test']['id_question']))); die;  
+                    // on recuprere la variable de session du numero identifiant du questionnaire
+                    $questionnaireId = $_SESSION['test']['id_questionnaire'];
+                    // on recupere le denier numero d identification dans le tableau de session des questioons du test
+                    $questionId = (int) array_keys(array_flip($_SESSION['test']['id_question']));
+                    //----------------------------------------------------------------------------------------
+                    // appelle de la fonction renvoie les information concernant la question
+                    //----------------------------------------------------------------------------------------
+                    $enonceQuestion = displayQuestion($questionnaireId, $questionId);
+                    //var_dump($enonceQuestion); die;     
+                ?>
                 <div class="card">
-                    <h5 class="card-header text-right">Question 1/20</h5>
+                    <h5 class="card-header text-right">Question <?=$questionId ?>/10</h5>
                     <!-- passage de l identifiant de la question en parametre cache -->
                     <input type="hidden" id="questionId" name="questionId" value=1>
                     <!-- /passage de l identifiant de la question en parametre cache -->
                     <div class="card-body">
-                        <h5 class="card-title">Quel est le prénom de Kev Adams ?</h5>
+                        <h5 class="card-title"><?=$enonceQuestion['question_libele'] ?></h5>
+                        <?php 
+                            //----------------------------------------------------------------------------------------
+                            // appelle de la fonction renvoie les reponses possibles a la question
+                            //----------------------------------------------------------------------------------------
+                            $reponseListe = displayAnswers($questionId);
+                            //var_dump($reponseListe); die;     
+                            ?>
                         <ul class="form-check pl-5">
-                            <li><input class="form-check-input" type="checkbox" id="checkboxQuestion1" name="checkboxQuestion1[]" value=1>
-                            <label class="form-check-label" for="checkboxQuestion1">Kevin</label></li>
-                            <li><input class="form-check-input" type="checkbox" id="checkboxQuestion1" name="checkboxQuestion1[]" value=2>
-                            <label class="form-check-label" for="checkboxLicencseTrue">Jean-Pascal</label></li>
-                            <li><input class="form-check-input" type="checkbox" id="checkboxQuestion1" name="checkboxQuestion1[]" value=3>
-                            <label class="form-check-label" for="checkboxQuestion1">Damien</label></li>
+                            <!---------------------------------//-------------------------------------------
+                                                    boucle pour remplir la liste de reponses -->
+                            <?php
+                                foreach ($reponseListe as $key => $column) {
+                            ?>
+                            <li><input class="form-check-input" type="checkbox" id="checkboxQuestion1" name="checkboxQuestion1[]" value="<?=$column['proposition_ID'] ?>">
+                            <label class="form-check-label" for="checkboxQuestion1"><?=$column['proposition_libele'] ?></label></li>
+                            <?php
+                                }
+                            ?>
+                            <!--                 boucle pour remplir la liste de reponses
+                            ---------------------------------//------------------------------------------->
                         </ul>
                     </div>
                 </div>
                 <!--------------------------------------------//---------------------------------------------------
                                                                     questionnaire
                 ----------------------------------------------------------------------------------------------------->
+                <!--------------------------------------------------//-------------------------------------------------------
+                            passage de l identifiant de la question en cours en  parametre cache pour la fonction qui retourne l identifiant suivant    -->
+                <input type="hidden" id="currentQuestion_ID" name="currentQuestion_ID_ID" value="<?=$questionId ?>">
+                <!--      passage de l identifiant de la question en cours en  parametre cache pour la fonction qui retourne l identifiant suivant   
+                ----------------------------------------------------//-------------------------------------------------------->
                 <hr class="mb-4">
-                <!-- bouton validation du questionnaire -->
+                <!-- bouton de validation des reponses a la question -->
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Valider</button>
-                <!-- /bouton validation du questionnaire -->
+                <!-- /bouton  de validation des reponses a la question -->
             </form>
             <!-------------------- /formulaire pour afficher les questions et reponses ----------------------------->      
 

@@ -40,7 +40,7 @@ function dropDownListReader($table) {
     } catch(PDOException $ex) {         
         $statement = null;
         $pdo = null;
-        $msg = 'ERREUR PDO Liste déroulate $table..' . $ex->getMessage(); 
+        $msg = "ERREUR PDO Liste déroulate $table.." . $ex->getMessage(); 
         die($msg);
     }
     // on retourne le resultat
@@ -228,7 +228,7 @@ function joinDropDownListReader($leftTable, $rightTable) {
     } catch(PDOException $ex) {         
         $statement = null;
         $pdo = null;
-        $msg = 'ERREUR PDO Liste déroulate $table..' . $ex->getMessage(); 
+        $msg = "ERREUR PDO Liste déroulate $leftTable et $rightTable..." . $ex->getMessage(); 
         die($msg);
     }
     // on retourne le resultat
@@ -236,19 +236,131 @@ function joinDropDownListReader($leftTable, $rightTable) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------------------
-//                      fonction pour renvoie une question et les reponses possible d un questionnaire
+//                      fonction pour renvoyer le numero d identification de la premiere question
 // ----------------------------------------------------------------------------------------------------------------------------------------
-function displayQuestionAndAnswers($currentQuestion) {
+function firstQuestionId() {
     // on instancie une connexion
     $pdo = my_pdo_connexxion();   
     // preparation de la requete preparee 
-    $queryList = "SELECT q.question_ID,  q.question_libele, p.proposition_ID, p.proposition_libele
-                            FROM `question` q
-                            INNER JOIN `proposition` p ON q.question_ID = p.question_ID
-                            WHERE q.questionnaire_ID = :bp_questionnaire_ID";   
+    $selecttId = "SELECT question_ID
+                            FROM `question`
+                            ORDER BY question_ID ASC
+                            LIMIT 1";
+    // preparation de la requete pour execution
+    try {
+        $statement = $pdo -> prepare($selecttId, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        // execution de la requete
+        $statement -> execute();
+        // on verifie s il y a des resultats
+        // --------------------------------------------------------
+        //var_dump($statement->fetchColumn()); die; 
+        // --------------------------------------------------------
+        if ($statement->rowCount() > 0) {
+            $firstId = $statement->fetch();            
+        } else {
+            $firstId = false;
+        }   
+        $statement -> closeCursor();
+    } catch(PDOException $ex) {         
+        $statement = null;
+        $pdo = null;
+        $msg = 'ERREUR PDO Récupération identifaint première question...' . $ex->getMessage(); 
+        die($msg);
+    }
+    // on retourne le resultat
+    return $firstId;
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------------------
+//                      fonction pour renvoyer le numero d identification de la prochaine question
+// ----------------------------------------------------------------------------------------------------------------------------------------
+function nextQuestionId($currentId) {
+    // on instancie une connexion
+    $pdo = my_pdo_connexxion();   
+    // preparation de la requete preparee 
+    $selecttId = "SELECT `question_ID`
+                            FROM `question`
+                            WHERE `question_ID` > :bp_current_ID
+                            ORDER BY `question_ID` ASC
+                            LIMIT 1";
+    // preparation de la requete pour execution
+    try {
+        $statement = $pdo -> prepare($selecttId, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        // passage de l identifiant de la question en  parametre
+        $statement->bindParam(':bp_current_ID', $currentId, PDO::PARAM_INT);
+        // execution de la requete
+        $statement -> execute();
+        // on verifie s il y a des resultats
+        // --------------------------------------------------------
+        //var_dump($statement->fetchColumn()); die; 
+        // --------------------------------------------------------
+        if ($statement->rowCount() > 0) {
+            $nextd = $statement->fetch();            
+        } else {
+            $nextd = false;
+        }   
+        $statement -> closeCursor();
+    } catch(PDOException $ex) {         
+        $statement = null;
+        $pdo = null;
+        $msg = 'ERREUR PDO Récupération identifaint prochaine question...' . $ex->getMessage(); 
+        die($msg);
+    }
+    // on retourne le resultat
+    return $nextd;
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------------------
+//                      fonction pour renvoier une question et les reponses possible d un questionnaire
+// ----------------------------------------------------------------------------------------------------------------------------------------
+function displayQuestion($questionnaireId, $questionId) {
+    // on instancie une connexion
+    $pdo = my_pdo_connexxion();   
+    // preparation de la requete preparee 
+    $queryList = "SELECT `question_libele`
+                            FROM `question`
+                            WHERE `questionnaire_ID` = :bp_questionnaire_ID
+                            AND `question_ID` = :bp_question_ID";   
     // preparation de la requete pour execution
     try {
         $statement = $pdo -> prepare($queryList, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        // passage des  parametres
+        $statement->bindParam(':bp_questionnaire_ID', $questionnaireId, PDO::PARAM_INT);
+        $statement->bindParam(':bp_question_ID', $questionId, PDO::PARAM_INT);
+        // execution de la requete
+        $statement -> execute();
+        // on verifie s il y a des resultats
+        // --------------------------------------------------------
+        //var_dump($statement->fetchColumn()); die; 
+        // --------------------------------------------------------
+        if ($statement->rowCount() > 0) {
+            $myReader = $statement->fetch();            
+        } else {
+            $myReader = false;
+        }   
+        $statement -> closeCursor();
+    } catch(PDOException $ex) {         
+        $statement = null;
+        $pdo = null;
+        $msg = 'ERREUR PDO Récupération énoncé question..' . $ex->getMessage(); 
+        die($msg);
+    }
+    // on retourne le resultat
+    return $myReader;
+}
+
+function displayAnswers($questionId) {
+    // on instancie une connexion
+    $pdo = my_pdo_connexxion();   
+    // preparation de la requete preparee 
+    $queryList = "SELECT `proposition_ID`, `proposition_libele`
+                            FROM `proposition`
+                            WHERE `question_ID` = :bp_question_ID";   
+    // preparation de la requete pour execution
+    try {
+        $statement = $pdo -> prepare($queryList, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        // passage de l identifiant de la question en  parametre
+        $statement->bindParam(':bp_question_ID', $questionId, PDO::PARAM_INT);
         // execution de la requete
         $statement -> execute();
         // on verifie s il y a des resultats
@@ -264,7 +376,7 @@ function displayQuestionAndAnswers($currentQuestion) {
     } catch(PDOException $ex) {         
         $statement = null;
         $pdo = null;
-        $msg = 'ERREUR PDO Liste déroulate $table..' . $ex->getMessage(); 
+        $msg = "ERREUR PDO Récupération réponses question $questionId..." . $ex->getMessage(); 
         die($msg);
     }
     // on retourne le resultat

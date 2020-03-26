@@ -111,7 +111,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                 <hr class="mb-4">
                 <!--------------------------------------------------//-------------------------------------------------------
                             passage de parametre cache pour l affichage du test associe a la formation     -->
-                        <input type="hidden" id="questionnaire_ID" name="questionnaire_ID" value="<?=$column['questionnaire_ID'] ?>">
+                <input type="hidden" id="questionnaire_ID" name="questionnaire_ID" value="<?=$column['questionnaire_ID'] ?>">
                 <!--      passage de parametre cache pour l affichage du test associe a la formation     
                 ----------------------------------------------------//-------------------------------------------------------->
                 <!-- bouton validation du choix de la formation -->

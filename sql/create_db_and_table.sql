@@ -114,11 +114,11 @@ CREATE TABLE VILLE (
 # Table: CENTRE
 #------------------------------------------------------------
 CREATE TABLE CENTRE (
-    centre_Id INT NOT NULL AUTO_INCREMENT,
+    centre_ID INT NOT NULL AUTO_INCREMENT,
     centre_Name VARCHAR(100) NOT NULL,
     centre_Address VARCHAR(255) NOT NULL,
     ville_ID INT NOT NULL,
-    PRIMARY KEY(centre_Id),
+    PRIMARY KEY(centre_ID),
     FOREIGN KEY(ville_ID) REFERENCES VILLE(ville_ID)
 ) ENGINE=InnoDB;
 
@@ -135,12 +135,12 @@ CREATE TABLE FORMATION (
 # Table associative : dispenser
 #------------------------------------------------------------
 CREATE TABLE dispenser (
-    centre_Id INT,
+    centre_ID INT,
     formation_ID INT,
     dateDebutFormation DATE NOT NULL,
     dateFinFormation DATE NOT NULL,
-    PRIMARY KEY(centre_Id, formation_ID, dateDebutFormation, dateFinFormation),
-    FOREIGN KEY(centre_Id) REFERENCES CENTRE(centre_Id),
+    PRIMARY KEY(centre_ID, formation_ID, dateDebutFormation, dateFinFormation),
+    FOREIGN KEY(centre_ID) REFERENCES CENTRE(centre_ID),
     FOREIGN KEY(formation_ID) REFERENCES FORMATION(formation_ID)
 ) ENGINE=InnoDB;
 
@@ -155,7 +155,7 @@ CREATE TABLE CONSEILLER (
     role_ID INT NOT NULL,
     PRIMARY KEY(utilisateur_ID),
     FOREIGN KEY(utilisateur_ID) REFERENCES UTILISATEUR(utilisateur_ID),
-    FOREIGN KEY(centre_Id) REFERENCES CENTRE(centre_Id),
+    FOREIGN KEY(centre_ID) REFERENCES CENTRE(centre_ID),
     FOREIGN KEY(role_ID) REFERENCES ROLE(role_ID)
 ) ENGINE=InnoDB;
 
