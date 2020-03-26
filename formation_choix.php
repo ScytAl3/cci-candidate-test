@@ -9,7 +9,7 @@ require 'pdo/pdo_db_functions.php';
 //----------------------------//----------------------------s
 //                       CURRENT SESSION
 // nom de la page en cours
-$_SESSION['current']['page'] = 'training_choice';
+$_SESSION['current']['page'] = 'formation_choix';
 // jauge de la barre de progression
 $_SESSION['current']['progressbar'] = 75;
 //                       CURRENT SESSION
@@ -85,10 +85,10 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     //var_dump($formationList); die;     
                 ?>
                 <div class="card">
-                    <label for="trainingChoice" class="card-header bg-info text-white text-uppercase"><h5>Intitulé de la formation</h5></label>
+                    <label for="formationChoix" class="card-header bg-info text-white text-uppercase"><h5>Intitulé de la formation</h5></label>
                     <div class="card-body">
                         <!-- Liste des formations -->
-                        <select class="custom-select d-block w-100" id="trainingChoice" name="trainingChoice" required>
+                        <select class="custom-select d-block w-100" id="formationChoix" name="formationChoix" required>
                             <option value="">Sélectionnez...</option>
                             <!---------------------------------//-------------------------------------------
                                                     boucle pour remplir la liste deroulante-->
@@ -115,7 +115,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                 <!--      passage de parametre cache pour l affichage du test associe a la formation     
                 ----------------------------------------------------//-------------------------------------------------------->
                 <!-- bouton validation du choix de la formation -->
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Valider</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Valider</button>
                 <!-- /bouton validation du choix de la formation -->
             </form>
             <!-------------------- /formulaire du choix de la formation ----------------------------->      

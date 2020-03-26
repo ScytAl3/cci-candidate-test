@@ -15,7 +15,8 @@
     //              | sinon
     //                     >  verification du numero insee (unicité)
     //                     >   verification identifiant pole emploi (unicité)
-    //===============================================================        
+    //===============================================================     
+    // si le formulaire a ete soumis (controle de validite realise en HTML5 avec l attribut required)   
     if (isset($_POST['submit'])) {
         // verification que l utilisateur a saisie au moins un numero de telephone
         if (empty($_POST['landlinePhone']) && empty($_POST['cellPhone'])) {

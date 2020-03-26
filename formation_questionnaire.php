@@ -69,7 +69,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
             </div>
             <!-- /titre de la page du dossier de candidature -->     
             <!-------------------- formulaire pour afficher les questions et reponses ----------------------------->
-            <form class="" action="php_process/qcm_form_process.php" method="POST">                                               
+            <form class="" action="php_process/formation_questionnaire_process.php" method="POST">                                               
                 <!-------------------------------------------//------------------------------------------------------
                                                                     questionnaire
                 ----------------------------------------------------------------------------------------------------->                
@@ -88,7 +88,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                 <div class="card">
                     <h5 class="card-header text-right">Question <?=$questionId ?>/10</h5>
                     <!-- passage de l identifiant de la question en parametre cache -->
-                    <input type="hidden" id="questionId" name="questionId" value=1>
+                    <input type="hidden" id="questionId" name="questionId" value="<?=$questionId ?>">
                     <!-- /passage de l identifiant de la question en parametre cache -->
                     <div class="card-body">
                         <h5 class="card-title"><?=$enonceQuestion['question_libele'] ?></h5>
@@ -105,8 +105,8 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                             <?php
                                 foreach ($reponseListe as $key => $column) {
                             ?>
-                            <li><input class="form-check-input" type="checkbox" id="checkboxQuestion1" name="checkboxQuestion1[]" value="<?=$column['proposition_ID'] ?>">
-                            <label class="form-check-label" for="checkboxQuestion1"><?=$column['proposition_libele'] ?></label></li>
+                            <li><input class="form-check-input" type="checkbox" id="checkboxQuestion" name="checkboxQuestion[]" value="<?=$column['proposition_ID'] ?>">
+                            <label class="form-check-label" for="checkboxQuestion"><?=$column['proposition_libele'] ?></label></li>
                             <?php
                                 }
                             ?>
@@ -125,7 +125,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                 ----------------------------------------------------//-------------------------------------------------------->
                 <hr class="mb-4">
                 <!-- bouton de validation des reponses a la question -->
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Valider</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Valider</button>
                 <!-- /bouton  de validation des reponses a la question -->
             </form>
             <!-------------------- /formulaire pour afficher les questions et reponses ----------------------------->      
