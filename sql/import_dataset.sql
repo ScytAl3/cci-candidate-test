@@ -147,37 +147,35 @@ VALUES
 INSERT INTO 
 	`proposition`(`proposition_libele`, `proposition_vrai`, `question_ID`) 
 VALUES
-	('HTML (Hypertext Markup Language)', 1, 1),
-	('HTTP (Hypertext Transfer Protocol)', 0, 1),
-	('JavaScript', 0, 1),
-	('Un numéro qui identifie chaque matériel informatique (ordinateur, routeur, imprimante) connecté à un réseau informatique', 1, 2),
-	('Le protocole de communication utilisé sur Internet', 0, 2),
-	('L’adresse d’un site web, commençant par "http://"', 0, 2),
-	('File Transmission Protocol', 0, 3),
-	('File Transfer Protocol', 1, 3),
-	('Fiber twisted pairs', 0, 3),
-	('Ça veut dire World Wide Web Consortium', 1, 4),
-	("C’est un nouveau groupe de K-pop", 0, 4),
-	("C’est un organisme de standardisation chargé de promouvoir la compatibilité des technologies du World Wide Web", 1, 4),
-	('<!DOCTYPE html5>', 0, 5),
-	('<!DOCTYPE html>', 1, 5),
-	('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML5.0 Strict//EN">', 0, 5),
-	('Cascading Style Sheets', 1, 6),
-	('JaCreate Simple SamplesvaScript', 0, 6),
-	('Cascading Simple Style', 0, 6),	
-	('Pour compliquer notre développement Web', 0, 7),
-	('Pour séparer le contenu et la présentation des documents web', 1, 7),
-	('Pour faire des dégradés de couleurs', 0, 7),
-	('Dans le <body>', 0, 8),
-	('Entre les balises <head>', 0, 8),
-	('Dans un fichier externe utilisable pour plusieurs pages', 1, 8),
-	('Dans ton cul tout simplement', 0, 8),
-	('Page Helper Process', 0, 9),
-	('Programming Home Pages', 0, 9),
-	('PHP: Hypertext Preprocessor', 1, 9),
-	("elle s'est vue assigner la constante NULL", 1, 10),
-	("elle n'a pas encore reçu de valeur", 1, 10),
-	('La variable a été évalué avec la fonction is_null()', 0, 10),
-	('elle a été effacée avec la fonction unset()', 1, 10);
-
-
+	('HTML (Hypertext Markup Language)', 1, 1),		-- 01
+	('HTTP (Hypertext Transfer Protocol)', 0, 1),		-- 02
+	('JavaScript', 0, 1),		-- 03
+	('Un numéro qui identifie chaque matériel informatique (ordinateur, routeur, imprimante) connecté à un réseau informatique', 1, 2),		-- 04
+	('Le protocole de communication utilisé sur Internet', 0, 2),		-- 05
+	('L’adresse d’un site web, commençant par "http://"', 0, 2),		-- 06
+	('File Transmission Protocol', 0, 3),		-- 07
+	('File Transfer Protocol', 1, 3),		-- 08
+	('Fiber twisted pairs', 0, 3),		-- 09
+	('Ça veut dire World Wide Web Consortium', 1, 4),		-- 10
+	("C’est un nouveau groupe de K-pop", 0, 4),		-- 11
+	("C’est un organisme de standardisation chargé de promouvoir la compatibilité des technologies du World Wide Web", 1, 4),		-- 12
+	('"<"!DOCTYPE html5">"', 0, 5),		-- 13
+	('"<"!DOCTYPE html">"', 1, 5),		-- 14
+	('"<"!DOCTYPE html PUBLIC "-//W3C//DTD HTML5.0 Strict//EN">"', 0, 5),		--15
+	('Cascading Style Sheets', 1, 6),		-- 16
+	('Create Simple SamplesvaScript', 0, 6),		-- 17
+	('Cascading Simple Style', 0, 6),			-- 18
+	('Pour compliquer notre développement Web', 0, 7),		-- 19
+	('Pour séparer le contenu et la présentation des documents web', 1, 7),		-- 20
+	('Pour faire des dégradés de couleurs', 0, 7),		-- 21
+	('Dans le "<"body">"', 0, 8),		-- 22
+	('Entre les balises "<"head">"', 0, 8),		-- 23
+	('Dans un fichier externe utilisable pour plusieurs pages', 1, 8),		-- 24
+	('Dans ton cul tout simplement', 0, 8),		-- 25
+	('Page Helper Process', 0, 9),		-- 26
+	('Programming Home Pages', 0, 9),		-- 27
+	('PHP: Hypertext Preprocessor', 1, 9),		-- 28
+	("elle s'est vue assigner la constante NULL", 1, 10),		-- 29
+	("elle n'a pas encore reçu de valeur", 1, 10),		-- 30
+	('La variable a été évalué avec la fonction is_null()', 0, 10),		-- 31
+	('elle a été effacée avec la fonction unset()', 1, 10);		-- 32

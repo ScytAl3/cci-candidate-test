@@ -10,11 +10,11 @@ require 'pdo_db_connect.php';
 //              fonction pour remplir les listes deroulantes
 // ---------------------------------------------------------------------------
 /**
- * renvoie le numero d identification et le libele des tables servant a remplir les listes deroulantes
+ * retourne le numero identifiant et le libele des tables servant a remplir les listes deroulantes
  * 
  * @param String    nom de la table sur lequel porte le select
  * 
- * @return Array    retourne un tableau avec la liste demandee
+ * @return Array    retourne un tableau avec la liste des informations demandees
  */
 function dropDownListReader($table) {
     // on instancie une connexion
@@ -56,7 +56,7 @@ function dropDownListReader($table) {
  * @param Array tableau contenant les informations saisies necessaires pour creer l utilisateur
  * @param Array tableau contenant les informations saisies necessaires pour creer le candidat
  * 
- * @return Int  retourne le numero d identification qui vient d etre cree
+ * @return Int  retourne le numero identifiant qui vient d etre cree
  */
 function createUser($userData, $candidatData) {
     // on instancie une connexion
@@ -93,7 +93,7 @@ function createUser($userData, $candidatData) {
         // execution de la requete
         $statement -> execute();
         $statement -> closeCursor();
-        // recupere le le numero utilisateur genere
+        // recupere le numero utilisateur genere
         $newUserId = $pdo -> lastInsertId();
         //--------------------------------------------------------------------------
         //                                  fin creation utilisteur
@@ -181,7 +181,7 @@ function createUser($userData, $candidatData) {
         $pdo -> rollback();
         $statement = null;
         $pdo = null;
-        $msg = 'ERREUR PDO create user...' . $ex->getMessage();
+        $msg = 'ERREUR PDO Creation utilisateur-candidat...' . $ex->getMessage();
         die($msg); 
     }
     // on retourne le dernier Id cree
@@ -235,9 +235,18 @@ function joinDropDownListReader($leftTable, $rightTable) {
     return $myReader;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                          Les Fonctions questionnaire                                         //
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // ----------------------------------------------------------------------------------------------------------------------------------------
-//                      fonction pour renvoyer le numero d identification de la premiere question
+//                      fonction pour renvoyer le numero identifiant de la premiere question
 // ----------------------------------------------------------------------------------------------------------------------------------------
+/**
+ * retourne le numero identifiant de la premiere question - au cas ou le questionnaire a ete modifie
+ * 
+ * @return Int  le numero identifiant, sinon FALSE
+ */
 function firstQuestionId() {
     // on instancie une connexion
     $pdo = my_pdo_connexxion();   
@@ -272,8 +281,15 @@ function firstQuestionId() {
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------------------
-//                      fonction pour renvoyer le numero d identification de la prochaine question
+//                      fonction pour renvoyer le numero identifiant de la prochaine question
 // ----------------------------------------------------------------------------------------------------------------------------------------
+/**
+ * retourne le numero identifiant de la question qui arrive apres celle en cours - au cas ou le questionnaire a ete modifie
+ * 
+ * @param Int   le numero identifiant de la question en cours
+ * 
+ * @return Int    le numero identifiant de la prochaine question, sinon FALSE
+ */
 function nextQuestionId($currentId) {
     // on instancie une connexion
     $pdo = my_pdo_connexxion();   
@@ -295,9 +311,9 @@ function nextQuestionId($currentId) {
         //var_dump($statement->fetchColumn()); die; 
         // --------------------------------------------------------
         if ($statement->rowCount() > 0) {
-            $nextd = $statement->fetch();            
+            $nextId = $statement->fetch();            
         } else {
-            $nextd = false;
+            $nextId = false;
         }   
         $statement -> closeCursor();
     } catch(PDOException $ex) {         
@@ -307,12 +323,20 @@ function nextQuestionId($currentId) {
         die($msg);
     }
     // on retourne le resultat
-    return $nextd;
+    return $nextId;
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------------------
 //                      fonction pour renvoier une question et les reponses possible d un questionnaire
 // ----------------------------------------------------------------------------------------------------------------------------------------
+/**
+ * retourne le libelle d une question
+ * 
+ * @param Int   le numero identifiant du questionnaire
+ * @param Int   le numero identifiant de la question
+ * 
+ * @return String   l enonce de la question, sinon FALSE
+ */
 function displayQuestion($questionnaireId, $questionId) {
     // on instancie une connexion
     $pdo = my_pdo_connexxion();   
@@ -349,6 +373,13 @@ function displayQuestion($questionnaireId, $questionId) {
     return $myReader;
 }
 
+/**
+ * retourne les differentes proposition associees a une question
+ * 
+ * @param Int   le numero identifiant de la question
+ * 
+ * @return Array    un tableau avec le libele de la reponse et son numero identifiant, sinon FALSE
+ */
 function displayAnswers($questionId) {
     // on instancie une connexion
     $pdo = my_pdo_connexxion();   
@@ -381,4 +412,100 @@ function displayAnswers($questionId) {
     }
     // on retourne le resultat
     return $myReader;
+}
+
+/**
+ * creer les differentes lignes associees a un candidat et un questionnaire dans les tables correspondantes
+ * 
+ * @param Int   numero identifiant du candidat
+ * @param Array tableau de numero identifiants des questions
+ * @param Array tableau des numeros identifiants des reponses aux questions
+ * @param Int   numero identifiant du questionnaire
+ * @param Datetime  date time du debut du test
+ * 
+ * @return Boolean  rentourne TRUE si tout c est bien deroule, sinon message erreur transaction
+ */
+function createAnswersCandidat($candidat_id, $questionArray, $answersArray) {
+    // on instancie une connexion
+    $pdo = my_pdo_connexxion(); 
+    // PDO pour creer une exception en cas d'erreur afin de faciliter le traitement des erreurs
+    $pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // on place les requetes dans le bloc TRY/CATCH pour annuler la tansaction en cas de probleme
+    //----------------------------------------------------------------------------------------------
+    //                               debut creation couple candidat - question
+    //                   boucle sur chaque question pour creer les reponses du candidat
+    //----------------------------------------------------------------------------------------------
+    // compte le nombre de questions dans le tableau de session
+    $nb_question =  count($questionArray);
+    //
+    //echo $nb_question; die;
+    //
+    try {
+        // debut de la transaction
+        $pdo -> beginTransaction();
+        //----------------------------------------------------------//-----------------------------------------------------------------------
+        //                            debut iteration -  recupere l identifiant de la question - sous tableau des questions
+        //-----------------------------------------------------------------------------------------------------------------------------------
+        for ($i=0; $i < $nb_question; $i++) {              
+            $currentQuestionId = $questionArray[$i];
+            // preparation de la requete pour creer le couple candidat - reponse
+            $userQuestion = "INSERT INTO 
+                                            `reponse_candidat`(`utilisateur_ID`, `question_ID`) 
+                                        VALUES (
+                                            :bp_utilisateur_ID,
+                                            :bp_question_ID
+                                            )";
+            // preparation de la requete pour execution
+            $statement = $pdo -> prepare($userQuestion, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+            // passage des paremetres
+            $statement -> bindParam('bp_utilisateur_ID', $candidat_id, PDO::PARAM_INT);
+            $statement -> bindParam('bp_question_ID', $currentQuestionId, PDO::PARAM_INT);
+            // execution de la requete
+            $statement -> execute();
+            $statement -> closeCursor();
+            // recupere le numero identifiant genere
+            $newUserAnswerId = $pdo -> lastInsertId();
+            //----------------------------------------------------------------//-------------------------------------------------------------------------------------
+            //          debut iteration -  recupere le tableau des identifiants reponses de la question en cours - sous tableau des reponses
+            //------------------------------------------------------------------------------------------------------------------------------------------------------
+            $answerList = $answersArray[$i];
+            // on parcours ce tableau
+            foreach ($answerList as $key => $value) {
+                $currentAnswerId = $value;
+                // preparation de la requete pour creer les couples  reponses - question
+                $userAnswer = "INSERT INTO 
+                                                `repondre`(`proposition_ID`, `reponse_candidat_ID`)
+                                            VALUES (
+                                                :bp_proposition_ID,
+                                                :bp_reponse_candidat_ID
+                                                )";
+                // preparation de la requete pour execution
+                $statement = $pdo -> prepare($userAnswer, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+                // passage des paremetres
+                $statement -> bindParam('bp_proposition_ID', $currentAnswerId, PDO::PARAM_INT);
+                $statement -> bindParam('bp_reponse_candidat_ID', $newUserAnswerId, PDO::PARAM_INT);
+                // execution de la requete
+                $statement -> execute();
+                $statement -> closeCursor();
+            }
+            //------------------------------------------------------------------------------------------------------------------------------------------------------
+            //          /debut iteration -  recupere le tableau des identifiants reponses de la question en cours - sous tableau des reponsess
+            //-------------------------------------------------------------------//----------------------------------------------------------------------------------
+        }
+        //-----------------------------------------------------------------------------------------------------------------------------------
+        //                          /fin iteration -  recupere l identifiant de la question - sous tableau des questions
+        //----------------------------------------------------------//-----------------------------------------------------------------------
+
+        // on rend les modifications en base de donnees permanentes si tout c est bien deroule
+        $pdo -> commit();
+
+    } catch(PDOException $ex) {         
+        // les inserts n ont pas ete realises on annule toutes les modification
+        $pdo -> rollback();
+        $statement = null;
+        $pdo = null;
+        $msg = 'ERREUR PDO Creation reponses questionnaire-candidat...' . $ex->getMessage();
+        die($msg); 
+    }
+    return true;      
 }

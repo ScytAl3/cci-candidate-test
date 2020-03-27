@@ -73,12 +73,13 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                 <!-------------------------------------------//------------------------------------------------------
                                                                     questionnaire
                 ----------------------------------------------------------------------------------------------------->                
-                <?php 
-                //var_dump(array_keys(array_flip($_SESSION['test']['id_question']))); die;  
+                <?php                 
                     // on recuprere la variable de session du numero identifiant du questionnaire
                     $questionnaireId = $_SESSION['test']['id_questionnaire'];
+                    // on compte le nombre de question
+                    $questionCount = count($_SESSION['test']['id_question']);
                     // on recupere le denier numero d identification dans le tableau de session des questioons du test
-                    $questionId = (int) array_keys(array_flip($_SESSION['test']['id_question']));
+                    $questionId = (int) ($_SESSION['test']['id_question'][$questionCount - 1]);
                     //----------------------------------------------------------------------------------------
                     // appelle de la fonction renvoie les information concernant la question
                     //----------------------------------------------------------------------------------------
@@ -120,7 +121,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                 ----------------------------------------------------------------------------------------------------->
                 <!--------------------------------------------------//-------------------------------------------------------
                             passage de l identifiant de la question en cours en  parametre cache pour la fonction qui retourne l identifiant suivant    -->
-                <input type="hidden" id="currentQuestion_ID" name="currentQuestion_ID_ID" value="<?=$questionId ?>">
+                <input type="hidden" id="currentQuestion_ID" name="currentQuestion_ID" value="<?=$questionId ?>">
                 <!--      passage de l identifiant de la question en cours en  parametre cache pour la fonction qui retourne l identifiant suivant   
                 ----------------------------------------------------//-------------------------------------------------------->
                 <hr class="mb-4">
@@ -140,6 +141,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
         <!-- /import du header -->
         <!------------------------------------------>
             <?=var_dump($_SESSION) ?>
+            <!--?=var_dump($_SESSION['test']) ?-->
         <!------------------------------------------>
         <!-- import scripts -->
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
