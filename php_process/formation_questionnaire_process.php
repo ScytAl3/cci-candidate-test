@@ -17,16 +17,17 @@
         } 
         // met le message d erreur a vide
         $_SESSION['error']['message'] = '';
-        // on renvoie un message d erreur (saisir au moins un numero de telephone)
-        $_SESSION['error']['page'] = 'questionnaire';
-        $_SESSION['error']['message'] = "Vous devez cocher au moins une réponse!";
-        // ajout dans le tableau de session des reponses les identifiants des reponses cochees
+        //----------------------------------------------------------------------------------------------------------
+        //      ajout dans le tableau de session des reponses les identifiants des reponses cochees
+        //----------------------------------------------------------------------------------------------------------
         array_push($_SESSION['test']['reponse'], $_POST['checkboxQuestion']);
         // recupere le  numero identifiant de la prochaine question
         $nextQuestionId = nextQuestionId($_POST['currentQuestion_ID']);
         // tant qu il reste un identifiant question - candidat n est pas arrive a la fin du questionnaire
         if ($nextQuestionId > 0) {
+            //---------------------------------------------------------------------------------------------------------------------
             // on ajout le numero identifiant de la prochaine question dans la tableau de session des question
+            //---------------------------------------------------------------------------------------------------------------------
             array_push($_SESSION['test']['id_question'], (int) $nextQuestionId['question_ID']);
             // on  redirige vers la question suivant sur la page du questionnaire
             header('location: /../formation_questionnaire.php');
@@ -53,29 +54,20 @@
             $questionArray = $_SESSION['test']['id_question'];
             // recperation du tableau des numeros identifiants des reponses
             $answersArray = $_SESSION['test']['reponse'];
-/*
-            var_dump($answersArray);
-            $count = count($answersArray);
-            for ($i=0; $i < $count; $i++) { 
-                $rep = $answersArray[$i];
-                foreach ( $rep as $key => $value) {                    
-                    echo $value;
-                }                    
-                echo "--";
-            }            
-            die;
-*/
+            //--------------------------------------------------------------------------------------------------------------------------------------
+            //                                      CREATION DES REPONSES AU QUESTIONNAIRE DU CANDIDAT
+            //--------------------------------------------------------------------------------------------------------------------------------------
             // on passe toutes les variables a la fonction qui va creer les inserts dans la base de donnees lors d une transaction
-           $answersCandidat = createAnswersCandidat($candidat_id, $questionArray, $answersArray);
-
-
-           //( $questionnaire_id, $questionnaire_begin)
-            
-
-            // on  redirige vers la page du test associe a la formation
-            header('location: /../test_end.php');
-        }
-        
-                   
+            $answersCandidat = createAnswersCandidat($candidat_id, $questionArray, $answersArray);
+            // si la creation c est bien derouler on peut mettre a jour la date de debut et de fin du test associe au candidat et au questionnaire
+            if($answersCandidat) {
+                $questionaireTime = testDuration($candidat_id, $questionnaire_id, $questionnaire_begin);
+                // si l insert dans la table c est bien deroule
+                if($questionaireTime) {
+                    // on  redirige vers la page de fin du test associe a la formation
+                    header('location: /../test_end.php');
+                }
+            } 
+        }          
     }         
 ?>

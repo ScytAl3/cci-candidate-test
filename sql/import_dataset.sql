@@ -163,7 +163,7 @@ VALUES
 	('"<"!DOCTYPE html">"', 1, 5),		-- 14
 	('"<"!DOCTYPE html PUBLIC "-//W3C//DTD HTML5.0 Strict//EN">"', 0, 5),		--15
 	('Cascading Style Sheets', 1, 6),		-- 16
-	('Create Simple SamplesvaScript', 0, 6),		-- 17
+	('Create Simple Sample', 0, 6),		-- 17
 	('Cascading Simple Style', 0, 6),			-- 18
 	('Pour compliquer notre développement Web', 0, 7),		-- 19
 	('Pour séparer le contenu et la présentation des documents web', 1, 7),		-- 20

@@ -19,11 +19,13 @@ require 'pdo_db_connect.php';
 function dropDownListReader($table) {
     // on instancie une connexion
     $pdo = my_pdo_connexxion();   
-    // preparation de la requete preparee 
-    $queryList = "SELECT * 
-                            FROM $table";   
-    // preparation de la requete pour execution
+    // PDO pour creer une exception en cas d'erreur afin de faciliter le traitement des erreurs
+    $pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
     try {
+        // preparation de la requete preparee 
+        $queryList = "SELECT * 
+                                FROM $table";   
+        // preparation de la requete pour execution
         $statement = $pdo -> prepare($queryList, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         // execution de la requete
         $statement -> execute();
@@ -206,12 +208,14 @@ function createUser($userData, $candidatData) {
 function joinDropDownListReader($leftTable, $rightTable) {
     // on instancie une connexion
     $pdo = my_pdo_connexxion();   
-    // preparation de la requete preparee 
-    $queryList = "SELECT f.formation_ID,  f.formation_Intitule,  q.questionnaire_ID
-                            FROM $leftTable f
-                            LEFT OUTER JOIN $rightTable q ON f.formation_ID = q.formation_ID";   
-    // preparation de la requete pour execution
+    // PDO pour creer une exception en cas d'erreur afin de faciliter le traitement des erreurs
+    $pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);     
     try {
+        // preparation de la requete preparee 
+        $queryList = "SELECT f.formation_ID,  f.formation_Intitule,  q.questionnaire_ID
+                                FROM $leftTable f
+                                LEFT OUTER JOIN $rightTable q ON f.formation_ID = q.formation_ID";   
+        // preparation de la requete pour execution
         $statement = $pdo -> prepare($queryList, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         // execution de la requete
         $statement -> execute();
@@ -250,13 +254,15 @@ function joinDropDownListReader($leftTable, $rightTable) {
 function firstQuestionId() {
     // on instancie une connexion
     $pdo = my_pdo_connexxion();   
-    // preparation de la requete preparee 
-    $selecttId = "SELECT question_ID
-                            FROM `question`
-                            ORDER BY question_ID ASC
-                            LIMIT 1";
-    // preparation de la requete pour execution
+    // PDO pour creer une exception en cas d'erreur afin de faciliter le traitement des erreurs
+    $pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);      
     try {
+        // preparation de la requete preparee 
+        $selecttId = "SELECT question_ID
+                                FROM `question`
+                                ORDER BY question_ID ASC
+                                LIMIT 1";
+        // preparation de la requete pour execution
         $statement = $pdo -> prepare($selecttId, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         // execution de la requete
         $statement -> execute();
@@ -292,15 +298,17 @@ function firstQuestionId() {
  */
 function nextQuestionId($currentId) {
     // on instancie une connexion
-    $pdo = my_pdo_connexxion();   
-    // preparation de la requete preparee 
-    $selecttId = "SELECT `question_ID`
-                            FROM `question`
-                            WHERE `question_ID` > :bp_current_ID
-                            ORDER BY `question_ID` ASC
-                            LIMIT 1";
-    // preparation de la requete pour execution
+    $pdo = my_pdo_connexxion();
+    // PDO pour creer une exception en cas d'erreur afin de faciliter le traitement des erreurs
+    $pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
     try {
+        // preparation de la requete preparee 
+        $selecttId = "SELECT `question_ID`
+                                FROM `question`
+                                WHERE `question_ID` > :bp_current_ID
+                                ORDER BY `question_ID` ASC
+                                LIMIT 1";
+        // preparation de la requete pour execution
         $statement = $pdo -> prepare($selecttId, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         // passage de l identifiant de la question en  parametre
         $statement->bindParam(':bp_current_ID', $currentId, PDO::PARAM_INT);
@@ -339,14 +347,16 @@ function nextQuestionId($currentId) {
  */
 function displayQuestion($questionnaireId, $questionId) {
     // on instancie une connexion
-    $pdo = my_pdo_connexxion();   
-    // preparation de la requete preparee 
-    $queryList = "SELECT `question_libele`
-                            FROM `question`
-                            WHERE `questionnaire_ID` = :bp_questionnaire_ID
-                            AND `question_ID` = :bp_question_ID";   
-    // preparation de la requete pour execution
+    $pdo = my_pdo_connexxion();
+    // PDO pour creer une exception en cas d'erreur afin de faciliter le traitement des erreurs
+    $pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
     try {
+        // preparation de la requete preparee 
+        $queryList = "SELECT `question_libele`
+                                FROM `question`
+                                WHERE `questionnaire_ID` = :bp_questionnaire_ID
+                                AND `question_ID` = :bp_question_ID";   
+        // preparation de la requete pour execution
         $statement = $pdo -> prepare($queryList, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         // passage des  parametres
         $statement->bindParam(':bp_questionnaire_ID', $questionnaireId, PDO::PARAM_INT);
@@ -382,13 +392,15 @@ function displayQuestion($questionnaireId, $questionId) {
  */
 function displayAnswers($questionId) {
     // on instancie une connexion
-    $pdo = my_pdo_connexxion();   
-    // preparation de la requete preparee 
-    $queryList = "SELECT `proposition_ID`, `proposition_libele`
-                            FROM `proposition`
-                            WHERE `question_ID` = :bp_question_ID";   
-    // preparation de la requete pour execution
+    $pdo = my_pdo_connexxion();
+    // PDO pour creer une exception en cas d'erreur afin de faciliter le traitement des erreurs
+    $pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
     try {
+        // preparation de la requete preparee 
+        $queryList = "SELECT `proposition_ID`, `proposition_libele`
+                                FROM `proposition`
+                                WHERE `question_ID` = :bp_question_ID";   
+        // preparation de la requete pour execution
         $statement = $pdo -> prepare($queryList, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         // passage de l identifiant de la question en  parametre
         $statement->bindParam(':bp_question_ID', $questionId, PDO::PARAM_INT);
@@ -420,8 +432,6 @@ function displayAnswers($questionId) {
  * @param Int   numero identifiant du candidat
  * @param Array tableau de numero identifiants des questions
  * @param Array tableau des numeros identifiants des reponses aux questions
- * @param Int   numero identifiant du questionnaire
- * @param Datetime  date time du debut du test
  * 
  * @return Boolean  rentourne TRUE si tout c est bien deroule, sinon message erreur transaction
  */
@@ -508,4 +518,46 @@ function createAnswersCandidat($candidat_id, $questionArray, $answersArray) {
         die($msg); 
     }
     return true;      
+}
+
+/**
+ * cree dans la table associative candidat - questionnaire une entree avec la date de debut et de fin du test
+ * 
+ * @param Int   numero identifiant du candidat
+ * @param Int   numero identifiant du questionnaire
+ * @param Datetime  date time du debut du test
+ * 
+ * @return Boolean  rentourne TRUE si tout c est bien deroule, sinon message erreur exception PDO
+ */
+function testDuration($candidat_id, $questionnaire_id, $questionnaire_begin) {
+    // on instancie une connexion
+    $pdo = my_pdo_connexxion();
+    // PDO pour creer une exception en cas d'erreur afin de faciliter le traitement des erreurs
+    $pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try {
+        // preparation de la requete pour creer la duree du test associe au candidat et un questionnaire
+        $sqlInsert = "INSERT INTO 
+                                    `remplir`(`utilisateur_ID`, `questionnaire_ID`, `date_debut_questionnaire`, `date_fin_questionnaire`) 
+                                VALUES (
+                                    :bp_utilisateur_ID,
+                                    :bp_questionnaire_ID,
+                                    :bp_date_debut,
+                                    now()
+                                    )";
+        // preparation de la requete pour execution
+        $statement = $pdo -> prepare($sqlInsert, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        // passage des paremetres
+        $statement -> bindParam('bp_utilisateur_ID', $candidat_id, PDO::PARAM_INT);
+        $statement -> bindParam('bp_questionnaire_ID', $questionnaire_id, PDO::PARAM_INT);
+        $statement -> bindParam('bp_date_debut', $questionnaire_begin, PDO::PARAM_STR);
+        // execution de la requete
+        $statement -> execute();
+        $statement -> closeCursor();
+    } catch(PDOException $ex) { 
+        $statement = null;
+        $pdo = null;
+        $msg = 'ERREUR PDO Creation Candidat-questionnaire durée...' . $ex->getMessage();
+        die($msg); 
+    }
+    return true;
 }
