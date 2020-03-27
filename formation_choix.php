@@ -78,9 +78,9 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                                                                     liste deroulante
                 ----------------------------------------------------------------------------------------------------->
                 <?php 
-                    //-------------------------------------------------------------------
-                    // appelle de la fonction pour remplir la liste deroulante
-                    //-------------------------------------------------------------------
+                    //-------------------------------------------------------------------------------------------------------------------
+                    //      appelle de la fonction pour remplir la liste deroulante et desactiver les formation sans test
+                    //-------------------------------------------------------------------------------------------------------------------
                     $formationList = joinDropDownListReader('formation', 'questionnaire');
                     //var_dump($formationList); die;     
                 ?>
@@ -109,11 +109,6 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                                                                     liste deroulante
                 ----------------------------------------------------------------------------------------------------->
                 <hr class="mb-4">
-                <!--------------------------------------------------//-------------------------------------------------------
-                            passage de parametre cache pour l affichage du test associe a la formation     -->
-                <input type="hidden" id="questionnaire_ID" name="questionnaire_ID" value="<?=$column['questionnaire_ID'] ?>">
-                <!--      passage de parametre cache pour l affichage du test associe a la formation     
-                ----------------------------------------------------//-------------------------------------------------------->
                 <!-- bouton validation du choix de la formation -->
                 <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Valider</button>
                 <!-- /bouton validation du choix de la formation -->

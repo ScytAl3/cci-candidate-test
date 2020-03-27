@@ -21,14 +21,17 @@
         //      ajout dans le tableau de session des reponses les identifiants des reponses cochees
         //----------------------------------------------------------------------------------------------------------
         array_push($_SESSION['test']['reponse'], $_POST['checkboxQuestion']);
+        $currentId = $_POST['currentQuestion_ID'];
+        $questionnaire_ID = $_SESSION['test']['id_questionnaire'];
         // recupere le  numero identifiant de la prochaine question
-        $nextQuestionId = nextQuestionId($_POST['currentQuestion_ID']);
+        $nextQuestionId = nextQuestionId($currentId, $questionnaire_ID);
+        //echo $nextQuestionId; die;
         // tant qu il reste un identifiant question - candidat n est pas arrive a la fin du questionnaire
-        if ($nextQuestionId > 0) {
+        if ($nextQuestionId != 0) {
             //---------------------------------------------------------------------------------------------------------------------
             // on ajout le numero identifiant de la prochaine question dans la tableau de session des question
             //---------------------------------------------------------------------------------------------------------------------
-            array_push($_SESSION['test']['id_question'], (int) $nextQuestionId['question_ID']);
+            array_push($_SESSION['test']['id_question'], (int) $nextQuestionId);
             // on  redirige vers la question suivant sur la page du questionnaire
             header('location: /../formation_questionnaire.php');
         } else {

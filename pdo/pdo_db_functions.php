@@ -198,7 +198,7 @@ function createUser($userData, $candidatData) {
 //          fonction pour remplir la liste deroulante et permettre de desactiver la selection des formations sans tests
 // ----------------------------------------------------------------------------------------------------------------------------------------
 /**
- * renvoie le numero d identification et le libele des tables servant a remplir les listes deroulantes
+ * renvoie le numero identifiant et le libele des tables servant a remplir les listes deroulantes
  * 
  * @param String    nom de la table premiere table
  * @param String    nom de la table sur lequel porte la jointure
@@ -239,6 +239,50 @@ function joinDropDownListReader($leftTable, $rightTable) {
     return $myReader;
 }
 
+/**
+ * renvoie le numero didentifiant du questionnaire associe a une formation
+ * 
+ * @param Int    identifiant de la formation choisie
+ * 
+ * @return Int   retourn identifiant du questionnaire associe
+ */
+function associatedTest($formation_ID) {
+    // on instancie une connexion
+    $pdo = my_pdo_connexxion();   
+    // PDO pour creer une exception en cas d'erreur afin de faciliter le traitement des erreurs
+    $pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);     
+    try {
+        // preparation de la requete preparee 
+        $queryList = "SELECT `questionnaire_ID`
+                                FROM `questionnaire` 
+                                WHERE `formation_ID` = :bp_formation_ID";   
+        // preparation de la requete pour execution
+        $statement = $pdo -> prepare($queryList, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        // passage du parametre
+        $statement->bindParam(':bp_formation_ID', $formation_ID, PDO::PARAM_INT);
+        // execution de la requete
+        $statement -> execute();
+        // on verifie s il y a des resultats
+        // --------------------------------------------------------
+        //var_dump($statement->fetchColumn()); die; 
+        // --------------------------------------------------------
+        if ($statement->rowCount() > 0) {
+            $result = $statement->fetch();    
+            $questionnaireId = $result['questionnaire_ID'];
+        } else {
+            $questionnaireId = false;
+        }   
+        $statement -> closeCursor();
+    } catch(PDOException $ex) {         
+        $statement = null;
+        $pdo = null;
+        $msg = "ERREUR PDO Numéro identifiant questionnaire..." . $ex->getMessage(); 
+        die($msg);
+    }
+    // on retourne le resultat
+    return $questionnaireId;
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                          Les Fonctions questionnaire                                         //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -251,19 +295,22 @@ function joinDropDownListReader($leftTable, $rightTable) {
  * 
  * @return Int  le numero identifiant, sinon FALSE
  */
-function firstQuestionId() {
+function firstQuestionId($questionnaire_ID) {
     // on instancie une connexion
     $pdo = my_pdo_connexxion();   
     // PDO pour creer une exception en cas d'erreur afin de faciliter le traitement des erreurs
     $pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);      
     try {
         // preparation de la requete preparee 
-        $selecttId = "SELECT question_ID
+        $selecttId = "SELECT `question_ID`
                                 FROM `question`
+                                WHERE `questionnaire_ID` = :bp_questionnaire_ID
                                 ORDER BY question_ID ASC
                                 LIMIT 1";
         // preparation de la requete pour execution
         $statement = $pdo -> prepare($selecttId, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        // passage de l identifiant de la question en  parametre
+        $statement->bindParam(':bp_questionnaire_ID', $questionnaire_ID, PDO::PARAM_INT);
         // execution de la requete
         $statement -> execute();
         // on verifie s il y a des resultats
@@ -271,7 +318,8 @@ function firstQuestionId() {
         //var_dump($statement->fetchColumn()); die; 
         // --------------------------------------------------------
         if ($statement->rowCount() > 0) {
-            $firstId = $statement->fetch();            
+            $result = $statement->fetch();      
+            $firstId = $result['question_ID'];
         } else {
             $firstId = false;
         }   
@@ -296,7 +344,7 @@ function firstQuestionId() {
  * 
  * @return Int    le numero identifiant de la prochaine question, sinon FALSE
  */
-function nextQuestionId($currentId) {
+function nextQuestionId($currentId, $questionnaire_ID) {
     // on instancie une connexion
     $pdo = my_pdo_connexxion();
     // PDO pour creer une exception en cas d'erreur afin de faciliter le traitement des erreurs
@@ -305,12 +353,14 @@ function nextQuestionId($currentId) {
         // preparation de la requete preparee 
         $selecttId = "SELECT `question_ID`
                                 FROM `question`
-                                WHERE `question_ID` > :bp_current_ID
+                                WHERE `questionnaire_ID` = :bp_questionnaire_ID
+                                AND `question_ID` > :bp_current_ID
                                 ORDER BY `question_ID` ASC
                                 LIMIT 1";
         // preparation de la requete pour execution
         $statement = $pdo -> prepare($selecttId, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-        // passage de l identifiant de la question en  parametre
+        // passage des identifiants en  parametres
+        $statement->bindParam(':bp_questionnaire_ID', $questionnaire_ID, PDO::PARAM_INT);
         $statement->bindParam(':bp_current_ID', $currentId, PDO::PARAM_INT);
         // execution de la requete
         $statement -> execute();
@@ -319,9 +369,10 @@ function nextQuestionId($currentId) {
         //var_dump($statement->fetchColumn()); die; 
         // --------------------------------------------------------
         if ($statement->rowCount() > 0) {
-            $nextId = $statement->fetch();            
+            $result = $statement->fetch();
+            $nextId = $result['question_ID'];
         } else {
-            $nextId = false;
+            $nextId = 0;
         }   
         $statement -> closeCursor();
     } catch(PDOException $ex) {         

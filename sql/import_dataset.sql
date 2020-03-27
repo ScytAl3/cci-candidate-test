@@ -122,7 +122,8 @@ VALUES
 INSERT INTO 
 	`questionnaire`(`questionnaire_libele`, `questionnaie_cearte_at`, `questionnaire_update_at`, `formation_ID`) 
 VALUES
-	('Test de connaissances Web', now(), NULL, 7);		-- 1
+	('Test de connaissances Web', now(), NULL, 7),		-- 01
+	('Test de connaissnces bureatique', now(), NULL, 4);		-- 02
 
 #-----------------------------------------------------------
 # Table: QUESTION - Data
@@ -139,7 +140,9 @@ VALUES
 	('Pourquoi utilise-t-on généralement du CSS ?', 0, now(), NULL, 1),		-- 7
 	('Où est-il conseillé de placer le code CSS ?', 0, now(), NULL, 1),		-- 8
 	('Que signifie PHP ?', 0, now(), NULL, 1),		-- 9
-	('En PHP une variable est considérée comme null si :', 1, now(), NULL, 1);		-- 10
+	('En PHP une variable est considérée comme null si :', 1, now(), NULL, 1),		-- 10
+	('Dans Windows, pouvez-vous travailler sur plusieurs applications à la fois ?', 0, now(), NULL, 2),		-- 11
+	('Pour appeler un menu contextuel, vous utilisez :', 0, now(), NULL, 2);		-- 12
 
 #-----------------------------------------------------------
 # Table: PROPOSITION - Data
@@ -161,7 +164,7 @@ VALUES
 	("C’est un organisme de standardisation chargé de promouvoir la compatibilité des technologies du World Wide Web", 1, 4),		-- 12
 	('"<"!DOCTYPE html5">"', 0, 5),		-- 13
 	('"<"!DOCTYPE html">"', 1, 5),		-- 14
-	('"<"!DOCTYPE html PUBLIC "-//W3C//DTD HTML5.0 Strict//EN">"', 0, 5),		--15
+	('"<"!DOCTYPE html PUBLIC "-//W3C//DTD HTML5.0 Strict//EN">"', 0, 5),		-- 15
 	('Cascading Style Sheets', 1, 6),		-- 16
 	('Create Simple Sample', 0, 6),		-- 17
 	('Cascading Simple Style', 0, 6),			-- 18
@@ -178,4 +181,10 @@ VALUES
 	("elle s'est vue assigner la constante NULL", 1, 10),		-- 29
 	("elle n'a pas encore reçu de valeur", 1, 10),		-- 30
 	('La variable a été évalué avec la fonction is_null()', 0, 10),		-- 31
-	('elle a été effacée avec la fonction unset()', 1, 10);		-- 32
+	('elle a été effacée avec la fonction unset()', 1, 10),		-- 32
+	('Oui', 1, 11),
+	('Non', 0, 11),
+	('"clic g" sur un objet ou une sélection ', 0, 12),
+	('"clic d" sur un objet, une sélection ou à la position du pointeur ', 1, 12),
+	('"double clic" dans la sélection', 0, 12),
+	('"maj+clic g" à la position du pointeur requise', 0, 12);

@@ -498,7 +498,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
         <?php include 'includes/footer.php'; ?>
         <!-- /import du header -->
 <!------------------------------------------>
-    <?=var_dump($_SESSION) ?>
+    <!--?=var_dump($_SESSION) ?-->
 <!------------------------------------------>
         <!-- import scripts -->
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
