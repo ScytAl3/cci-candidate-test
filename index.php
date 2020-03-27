@@ -128,11 +128,11 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Nom</label>
-                            <input type="text" class="form-control" id="lastName" name ="lastName" placeholder="" value="">
+                            <input type="text" class="form-control" id="lastName" name ="lastName" placeholder="" value="" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="firstName">Prénom</label>
-                            <input type="text" class="form-control" id="firstName" name ="firstName" placeholder="" value="">
+                            <input type="text" class="form-control" id="firstName" name ="firstName" placeholder="" value="" required>
                         </div>
                     </div>
                     <!-- /nom & prenom -->
@@ -145,7 +145,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="birthDate">Date de naissance</label>
-                            <input type="date" class="form-control" id="birthDate"  name ="birthDate" placeholder="" value="">
+                            <input type="date" class="form-control" id="birthDate"  name ="birthDate" placeholder="" value="" required>
                         </div>
                     </div>
                     <!-- /nom jeune fille & date naissance -->
@@ -153,7 +153,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <!-- numero securite sociale -->
                     <div class="mb-3">
                         <label for="socialSecurityNumber">N° de sécurité sociale</label>
-                        <input type="text" class="form-control" id="socialSecurityNumber" name="socialSecurityNumber" placeholder="15 chiffres ex : 1 85 05 78 006 084 36" value="">
+                        <input type="text" class="form-control" id="socialSecurityNumber" name="socialSecurityNumber" placeholder="15 chiffres ex : 1 85 05 78 006 084 36" value="" required>
                     </div>
                     <!-- /numero securite sociale -->
 
@@ -161,11 +161,11 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="birthPlace">Lieu de naissance</label>
-                            <input type="text" class="form-control" id="birthPlace" name ="birthPlace" placeholder="" value="">
+                            <input type="text" class="form-control" id="birthPlace" name ="birthPlace" placeholder="" value="" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="birthDepartment">Département</label>
-                            <input type="text" class="form-control" id="birthDepartment" name ="birthDepartment" placeholder="" value="">
+                            <input type="text" class="form-control" id="birthDepartment" name ="birthDepartment" placeholder="" value="" required>
                         </div>
                     </div>
                     <!-- /lieu de naissance et code postal -->
@@ -173,7 +173,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <!-- nationalite -->
                     <div class="mb-3">
                         <label for="nationality">Nationalié</label>
-                        <input type="text" class="form-control" id="nationality" name="nationality" placeholder="" value="">
+                        <input type="text" class="form-control" id="nationality" name="nationality" placeholder="" value="" required>
                     </div>
                     <!-- /nationalite -->
 
@@ -181,7 +181,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <div class="mb-3">
                         <label class="col-md-3" for="radioLicencse">Permis de conduire</label>
                         <div class="form-check form-check-inline ml-5">
-                            <input class="form-check-input" type="radio" id="radioLicencse" name="radioLicencse" value=1>
+                            <input class="form-check-input" type="radio" id="radioLicencse" name="radioLicencse" value=1 required>
                             <label class="form-check-label" for="radioLicencse">Oui</label>
                         </div>
                         <div class="form-check form-check-inline ml-5">
@@ -195,7 +195,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <div class="mb-3">
                         <label class="col-md-3" for="radioPersonalCar">Voiture personnelle</label>
                         <div class="form-check form-check-inline ml-5">
-                            <input class="form-check-input" type="radio" id="radioPersonalCar" name="radioPersonalCar" value=1>
+                            <input class="form-check-input" type="radio" id="radioPersonalCar" name="radioPersonalCar" value=1 required>
                             <label class="form-check-label" for="radioPersonalCar">Oui</label>
                         </div>
                         <div class="form-check form-check-inline ml-5">
@@ -209,12 +209,12 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="emergency">Personne à prevenir en cas d'urgence</label>
-                            <input type="text" class="form-control" id="emergency" name ="emergency" placeholder="" value="">
+                            <input type="text" class="form-control" id="emergency" name ="emergency" placeholder="" value="" required>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label for="emergencyPhone">Numéro de téléphone</label>
-                            <input type="text" class="form-control" id="emergencyPhone"  name ="emergencyPhone" placeholder="" value="">
+                            <input type="text" class="form-control" id="emergencyPhone"  name ="emergencyPhone" placeholder="" value="" required>
                         </div>
                     </div>
                     <!-- /personne a prevenir en cas d urgence -->
@@ -229,7 +229,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     ?>
                     <div class="mb-3">
                         <label for="degreeObtained">Diplôme obtenu</label>
-                        <select class="custom-select d-block w-100" id="degreeObtained" name="degreeObtained">
+                        <select class="custom-select d-block w-100" id="degreeObtained" name="degreeObtained" required>
                             <option value="" disabled selected>Sélectionnez...</option>
                             <!---------------------------------//-------------------------------------------
                                                     boucle pour remplir la liste deroulante-->
@@ -249,7 +249,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <!-- derniere classe -->
                     <div class="mb-3">
                         <label for="lastClass">Dernière classe fréquentée</label>
-                        <input type="text" class="form-control" id="lastClass" name="lastClass" placeholder="" value="">
+                        <input type="text" class="form-control" id="lastClass" name="lastClass" placeholder="" value="" required>
                     </div>
                     <!-- /derniere classe -->
 
@@ -263,7 +263,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     ?>
                     <div class="mb-3">
                         <label for="gradeLevel">Niveau d'étude</label>
-                        <select class="custom-select d-block w-100" id="gradeLevel" name="gradeLevel">
+                        <select class="custom-select d-block w-100" id="gradeLevel" name="gradeLevel" required>
                             <option value="" disabled selected>Sélectionnez...</option>
                             <!---------------------------------//-------------------------------------------
                                                     boucle pour remplir la liste deroulante-->
@@ -295,7 +295,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <!-- adresse -->
                     <div class="mb-3">
                         <label for="address">Adresse</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="1234 Place de la république" value="">
+                        <input type="text" class="form-control" id="address" name="address" placeholder="1234 Place de la république" value="" required>
                     </div>
 
                     <div class="mb-3">
@@ -308,12 +308,12 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                     <div class="row">
                         <div class="col-md-5 mb-3">
                             <label for="zip">Code postal</label>
-                            <input type="text" class="form-control" id="zip" name="zip" placeholder="">
+                            <input type="text" class="form-control" id="zip" name="zip" placeholder="" required>
                         </div>
 
                         <div class="col-md-7 mb-3">
                             <label for="state">Ville</label>
-                            <input type="text" class="form-control" id="ville" name="ville" placeholder="">
+                            <input type="text" class="form-control" id="ville" name="ville" placeholder="" required>
                         </div>
                     </div>
                     <!-- code postal & ville -->
@@ -339,7 +339,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                             <div class="input-group-prepend">
                                 <span class="input-group-text">@</span>
                             </div>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
                         </div>
                     </div>
                     <!-- /email -->
@@ -364,7 +364,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                      <div class="row">
                         <div class="col-md-7 mb-3">
                             <label for="maritalStatus">Situation familiale</label>
-                            <select class="custom-select d-block w-100" id="maritalStatus" name="maritalStatus">
+                            <select class="custom-select d-block w-100" id="maritalStatus" name="maritalStatus" required>
                                 <option value="" disabled selected>Sélectionnez...</option>
                                 <!---------------------------------//-------------------------------------------
                                                     boucle pour remplir la liste deroulante-->
@@ -396,11 +396,11 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="dateRegistration">Date d'inscription au Pôle Emploi</label>
-                                <input type="date" class="form-control" id="dateRegistration"  name ="dateRegistration" placeholder="" value="">
+                                <input type="date" class="form-control" id="dateRegistration"  name ="dateRegistration" placeholder="" value="" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="IDnumber">N° identifiant</label>
-                                <input type="text" class="form-control" id="IDnumber" name ="IDnumber" placeholder="" value="">
+                                <input type="text" class="form-control" id="IDnumber" name ="IDnumber" placeholder="" value="" required>
                             </div>
                         </div>
                         <!-- /inscription & numero identifiant -->
@@ -409,11 +409,11 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="agencyOf">Agence de</label>
-                                <input type="text" class="form-control" id="agencyOf" name ="agencyOf" placeholder="" value="">
+                                <input type="text" class="form-control" id="agencyOf" name ="agencyOf" placeholder="" value="" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="consultant">Nom de la conseillère/du conseiller</label>
-                                <input type="text" class="form-control" id="consultant" name ="consultant" placeholder="" value="">
+                                <input type="text" class="form-control" id="consultant" name ="consultant" placeholder="" value="" required>
                             </div>
                         </div>
                         <!-- /nom & prenom -->
@@ -422,7 +422,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                         <div class="mb-3">
                             <label class="col-md-3" for="radioCompensation">Indemnisation Pôle Emploi</label>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="radio" id="radioCompensation" name="radioCompensation" value=1>
+                                <input class="form-check-input" type="radio" id="radioCompensation" name="radioCompensation" value=1 required>
                                 <label class="form-check-label" for="radioCompensation">Oui</label>
                             </div>
                             <div class="form-check form-check-inline ml-5">
@@ -454,7 +454,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                         <div class="mb-3">
                             <label class="col-md-3" for="radioBeneficiaryRSA">Etes-vous bénéficiaire du RSA</label>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="radio" id="radioBeneficiaryRSA" name="radioBeneficiaryRSA" value=1>
+                                <input class="form-check-input" type="radio" id="radioBeneficiaryRSA" name="radioBeneficiaryRSA" value=1 required>
                                 <label class="form-check-label" for="radioBeneficiaryRSA">Oui</label>
                             </div>
                             <div class="form-check form-check-inline ml-5">
@@ -468,7 +468,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
                         <div class="mb-3">
                             <label class="col-md-3" for="radioRightfulClaimant">Ou ayant droit</label>
                             <div class="form-check form-check-inline ml-5">
-                                <input class="form-check-input" type="radio" id="radioRightfulClaimant" name="radioRightfulClaimant" value=1>
+                                <input class="form-check-input" type="radio" id="radioRightfulClaimant" name="radioRightfulClaimant" value=1 required>
                                 <label class="form-check-label" for="radioRightfulClaimant">Oui</label>
                             </div>
                             <div class="form-check form-check-inline ml-5">

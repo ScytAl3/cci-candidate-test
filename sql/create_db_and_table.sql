@@ -74,7 +74,7 @@ CREATE TABLE CANDIDAT(
     voiturePersonnelle BOOLEAN NOT NULL,
     nomUrgence VARCHAR(100) NOT NULL,
     telUrgence VARCHAR(12) NOT NULL,
-    derniereClasse VARCHAR(100) NOT NULL,
+    derniereClasse VARCHAR(100),
     adresse VARCHAR(255) NOT NULL,
     adresseSuite VARCHAR(100),
     codePostal VARCHAR(5) NOT NULL,
