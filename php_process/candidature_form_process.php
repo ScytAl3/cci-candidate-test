@@ -80,10 +80,12 @@
         //                                  on creer l utilisateur
         // ---------------------------------------------------------------------------
         $newUser = createUser($userData, $candidatData);
-        // on enregistre comme variables de session - le role 
-        $_SESSION['current']['userRole'] = 'Member'; 
-        // on enregistre comme variables de session - le numero d identifiant
+        // enregistre comme variable de session - le role 
+        $_SESSION['current']['userRole'] = 'Candidat'; 
+        // enregistre comme variable de session - le numero d identifiant
         $_SESSION['current']['userId'] = $newUser;   
+        // passe la variable de session login a TRUE
+        $_SESSION['current']['login'] = true;
         // on  redirige vers la page de selection des formation
         header('location: /../formation_choix.php');
     }

@@ -3,6 +3,19 @@
 session_start ();
 // import du script pdo des fonctions qui accedent a la base de donnees
 require 'pdo/pdo_db_functions.php';
+// verification que l utilisateur ne passe pas par l URL si le dossier de candidature n est pas valide
+if (isset($_SESSION['current']) && ($_SESSION['current']['userRole'] == 'Visitor')) {
+    header('location: index.php');
+}
+// verification que l utilisateur ne passe pas par l URL a partir de la page de selection des formation
+// dossier valide mais pas selectionne de formation - test
+if(isset($_SESSION['test']) && (!$_SESSION['test']['start'])) {
+    header('location: formation_choix.php');
+}
+// verification que l utilisateur ne passe pas par l URL sans termine le test
+if(isset($_SESSION['test']) && (!$_SESSION['test']['end'])) {
+    header('location: formation_questionnaire.php');
+}
 // ----------------------------//---------------------------
 //                      variables de session
 // ---------------------------------------------------------

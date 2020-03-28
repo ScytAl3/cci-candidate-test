@@ -3,6 +3,10 @@
 session_start ();
 // import du script pdo des fonctions qui accedent a la base de donnees
 require 'pdo/pdo_db_functions.php';
+// verification que l utilisateur ne passe pas par l URL si le test a commence
+if(isset($_SESSION['test']) && ($_SESSION['test']['start'])) {
+    header('location: formation_questionnaire.php');
+}
 // ----------------------------//---------------------------
 //                      variables de session
 // ---------------------------------------------------------
@@ -15,7 +19,9 @@ if (!isset($_SESSION['test'])) {
     // subdivision du test 
     $_SESSION['test']['id_formation'] = "";
     $_SESSION['test']['id_questionnaire'] = "";
+    $_SESSION['test']['start'] = false;
     $_SESSION['test']['time_debut'] = "";
+    $_SESSION['test']['end'] = false;
     $_SESSION['test']['id_question'] = array();
     $_SESSION['test']['reponse'] = array();
 }
@@ -86,6 +92,16 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
         <!-- import du header -->
         <?php include 'includes/header.php'; ?>
         <!-- /import du header -->
+        <?php
+            /*$before = time();
+            $dateBefore = date('Y-m-d H:i:s', $before);
+            echo $dateBefore.'<br>';
+            $after = time();
+            date_default_timezone_set("Europe/Paris");
+            
+            $dateAfter = date('Y-m-d H:i:s', $after);
+            echo $dateAfter.'<br>';*/
+        ?>
         
         <div class="container global-padding-top pt-3 mb-5">
             <!-- message d information pour tester la connexion a la base de donnees -->
@@ -118,7 +134,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
             </div>
             <!-- /titre de la page du dossier de candidature -->                 
             <!--------------------  formulaire pour le dossier du candidat ----------------------------->
-            <form class="" action="php_process/candidature_form_process.php" method="POST">
+            <form class="<?=($_SESSION['current']['login']) ? 'd-none' : 'd-block'; ?>" action="php_process/candidature_form_process.php" method="POST">
                 <!-----------------------------------------------//---------------------------------------------------
                                                                             etat civil
                 ----------------------------------------------------------------------------------------------------->
@@ -498,7 +514,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
         <?php include 'includes/footer.php'; ?>
         <!-- /import du header -->
 <!------------------------------------------>
-    <!--?=var_dump($_SESSION) ?-->
+    <?=var_dump($_SESSION) ?>
 <!------------------------------------------>
         <!-- import scripts -->
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

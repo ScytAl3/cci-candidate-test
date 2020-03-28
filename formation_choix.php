@@ -3,6 +3,10 @@
 session_start ();
 // import du script pdo des fonctions qui accedent a la base de donnees
 require 'pdo/pdo_db_functions.php';
+// verification que l utilisateur ne passe pas par l URL si le dossier de candidature n est pas valide
+if (isset($_SESSION['current']) && ($_SESSION['current']['userRole'] == 'Visitor')) {
+    header('location: index.php');
+}
 // ----------------------------//---------------------------
 //                      variables de session
 // ---------------------------------------------------------
@@ -73,7 +77,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
             </div>
             <!-- /titre de la page du choix de la formation -->           
             <!-------------------- formulaire du choix de la formation ----------------------------->
-            <form class="" action="php_process/formation_choix_process.php" method="POST">                                               
+            <form class="<?=($_SESSION['test']['start']) ? 'd-none' : 'd-block'; ?>" action="php_process/formation_choix_process.php" method="POST">                                               
                 <!-------------------------------------------//---------------------------------------------------
                                                                     liste deroulante
                 ----------------------------------------------------------------------------------------------------->

@@ -478,7 +478,7 @@ function displayAnswers($questionId) {
 }
 
 /**
- * creer les differentes lignes associees a un candidat et un questionnaire dans les tables correspondantes
+ * creation des differentes lignes associees a un candidat et un questionnaire dans les tables correspondantes
  * 
  * @param Int   numero identifiant du candidat
  * @param Array tableau de numero identifiants des questions
@@ -572,7 +572,7 @@ function createAnswersCandidat($candidat_id, $questionArray, $answersArray) {
 }
 
 /**
- * cree dans la table associative candidat - questionnaire une entree avec la date de debut et de fin du test
+ * creation dans la table associative candidat - questionnaire d une entree avec la date de debut et de fin du test
  * 
  * @param Int   numero identifiant du candidat
  * @param Int   numero identifiant du questionnaire
@@ -608,6 +608,44 @@ function testDuration($candidat_id, $questionnaire_id, $questionnaire_begin) {
         $statement = null;
         $pdo = null;
         $msg = 'ERREUR PDO Creation Candidat-questionnaire durée...' . $ex->getMessage();
+        die($msg); 
+    }
+    return true;
+}
+
+/**
+ * creation dans la table candidater de l association candidat - formation
+ * 
+ * @param Int   numero identifiant du candidat
+ * @param Int   numero identifiant de la formation
+ * 
+ * @return Boolean rentourne TRUE si tout c est bien deroule, sinon message erreur exception PDO
+ */
+function candidatFormation($candidat_id, $formation_id) {
+    // on instancie une connexion
+    $pdo = my_pdo_connexxion();
+    // PDO pour creer une exception en cas d'erreur afin de faciliter le traitement des erreurs
+    $pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try {
+        // preparation de la requete pour creer la duree du test associe au candidat et un questionnaire
+        $sqlInsert = "INSERT INTO 
+                                    `candidater`(`utilisateur_ID`, `formation_ID`)
+                                VALUES (
+                                    :bp_utilisateur_ID,
+                                    :bp_formation_ID
+                                    )";
+        // preparation de la requete pour execution
+        $statement = $pdo -> prepare($sqlInsert, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        // passage des paremetres
+        $statement -> bindParam('bp_utilisateur_ID', $candidat_id, PDO::PARAM_INT);
+        $statement -> bindParam('bp_formation_ID', $formation_id, PDO::PARAM_INT);
+        // execution de la requete
+        $statement -> execute();
+        $statement -> closeCursor();
+    } catch(PDOException $ex) { 
+        $statement = null;
+        $pdo = null;
+        $msg = 'ERREUR PDO Creation Candidat-formation...' . $ex->getMessage();
         die($msg); 
     }
     return true;

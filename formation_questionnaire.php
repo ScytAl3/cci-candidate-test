@@ -3,6 +3,14 @@
 session_start ();
 // import du script pdo des fonctions qui accedent a la base de donnees
 require 'pdo/pdo_db_functions.php';
+// verification que l utilisateur ne passe pas par l URL
+if (isset($_SESSION['current']) && ($_SESSION['current']['userRole'] == 'Visitor')) {
+    header('location: index.php');
+}
+// verification que l utilisateur ne passe pas par l URL sans avoir selectionne de formation
+if(isset($_SESSION['test']) && (!$_SESSION['test']['start'])) {
+    header('location: formation_choix.php');
+}
 // ----------------------------//---------------------------
 //                      variables de session
 // ---------------------------------------------------------
@@ -69,7 +77,7 @@ if ($_SESSION['current']['page'] != $_SESSION['error']['page']) {$_SESSION['erro
             </div>
             <!-- /titre de la page du dossier de candidature -->     
             <!-------------------- formulaire pour afficher les questions et reponses ----------------------------->
-            <form class="" action="php_process/formation_questionnaire_process.php" method="POST">                                               
+            <form class="<?=($_SESSION['test']['end']) ? 'd-none' : 'd-block'; ?>" action="php_process/formation_questionnaire_process.php" method="POST">                                               
                 <!-------------------------------------------//------------------------------------------------------
                                                                     questionnaire
                 ----------------------------------------------------------------------------------------------------->                

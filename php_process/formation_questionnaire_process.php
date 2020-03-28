@@ -17,9 +17,9 @@
         } 
         // met le message d erreur a vide
         $_SESSION['error']['message'] = '';
-        //----------------------------------------------------------------------------------------------------------
-        //      ajout dans le tableau de session des reponses les identifiants des reponses cochees
-        //----------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------------------
+        //      ajoute dans le tableau de session des reponses les identifiants des reponses cochees
+        //-----------------------------------------------------------------------------------------------------------
         array_push($_SESSION['test']['reponse'], $_POST['checkboxQuestion']);
         $currentId = $_POST['currentQuestion_ID'];
         $questionnaire_ID = $_SESSION['test']['id_questionnaire'];
@@ -29,10 +29,10 @@
         // tant qu il reste un identifiant question - candidat n est pas arrive a la fin du questionnaire
         if ($nextQuestionId != 0) {
             //---------------------------------------------------------------------------------------------------------------------
-            // on ajout le numero identifiant de la prochaine question dans la tableau de session des question
+            //      ajoute le numero identifiant de la prochaine question dans la tableau de session des question
             //---------------------------------------------------------------------------------------------------------------------
             array_push($_SESSION['test']['id_question'], (int) $nextQuestionId);
-            // on  redirige vers la question suivant sur la page du questionnaire
+            // redirection vers la question suivant sur la page du questionnaire
             header('location: /../formation_questionnaire.php');
         } else {
             // sinon le candidat est arrive a la fin du questionnaire
@@ -51,7 +51,11 @@
             $questionnaire_id = $_SESSION['test']['id_questionnaire'];
             // recuperation numero identifiant du candidat
             $candidat_id = $_SESSION['current']['userId'];
+            //recuperation numero identifiant de la formation
+            $formation_id = $_SESSION['test']['id_formation'];
             // recuperation du timestamp de debut du questionnaire
+            // set the timezone
+            date_default_timezone_set("Europe/Paris");
             $questionnaire_begin = date('Y-m-d H:i:s', $_SESSION['test']['time_debut']);
             // recperation du tableau des numeros identifiants des questions
             $questionArray = $_SESSION['test']['id_question'];
@@ -60,17 +64,21 @@
             //--------------------------------------------------------------------------------------------------------------------------------------
             //                                      CREATION DES REPONSES AU QUESTIONNAIRE DU CANDIDAT
             //--------------------------------------------------------------------------------------------------------------------------------------
-            // on passe toutes les variables a la fonction qui va creer les inserts dans la base de donnees lors d une transaction
+            // passage de toutes les variables a la fonction qui va creer les inserts dans la base de donnees lors d une transaction
             $answersCandidat = createAnswersCandidat($candidat_id, $questionArray, $answersArray);
             // si la creation c est bien derouler on peut mettre a jour la date de debut et de fin du test associe au candidat et au questionnaire
             if($answersCandidat) {
                 $questionaireTime = testDuration($candidat_id, $questionnaire_id, $questionnaire_begin);
+                // creation d une entree dans la table candidater avec l identifiant candidat et identifiant de la formation correspondant au questionnaire
+                $candidaterA = candidatFormation($candidat_id, $formation_id);
                 // si l insert dans la table c est bien deroule
                 if($questionaireTime) {
-                    // on  redirige vers la page de fin du test associe a la formation
+                    // passe la variable de session de fin de test a TRUE
+                    $_SESSION['test']['end'] = true;
+                    // redirection vers la page de fin du test associe a la formation
                     header('location: /../test_end.php');
                 }
-            } 
+            }
         }          
     }         
 ?>
