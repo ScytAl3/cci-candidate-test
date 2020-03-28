@@ -71,13 +71,10 @@
                 $questionaireTime = testDuration($candidat_id, $questionnaire_id, $questionnaire_begin);
                 // creation d une entree dans la table candidater avec l identifiant candidat et identifiant de la formation correspondant au questionnaire
                 $candidaterA = candidatFormation($candidat_id, $formation_id);
-                // si l insert dans la table c est bien deroule
-                if($questionaireTime) {
-                    // passe la variable de session de fin de test a TRUE
-                    $_SESSION['test']['end'] = true;
-                    // redirection vers la page de fin du test associe a la formation
-                    header('location: /../test_end.php');
-                }
+                // passe la variable de session de fin de test a TRUE
+                $_SESSION['test']['end'] = true;
+                // redirection vers la page de fin du test associe a la formation
+                header('location: /../test_end.php');
             }
         }          
     }         
